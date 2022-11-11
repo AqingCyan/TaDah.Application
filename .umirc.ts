@@ -7,7 +7,7 @@ export default {
   extraPostCSSPlugins: [
     autoprefixer,
     postCssPxToViewport({
-      viewportWidth: 750
-    })
+      viewportWidth: 750,
+    }),
   ],
-};
+}
