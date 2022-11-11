@@ -1,0 +1,25 @@
+{
+  "name": "tadah-tally",
+  "private": true,
+  "author": "AqingCyan <aqingcyan@gmail.com>",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "setup": "umi setup",
+    "start": "pnpm run dev"
+  },
+  "dependencies": {
+    "umi": "^4.0.30"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "autoprefixer": "^10.4.13",
+    "postcss-px-to-viewport": "^1.1.1",
+    "typescript": "^4.1.2",
+    "prettier": "^2",
+    "prettier-plugin-organize-imports": "^2",
+    "prettier-plugin-packagejson": "^2"
+  }
+}
