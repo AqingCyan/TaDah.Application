@@ -8,13 +8,16 @@ toast.setAttribute('class', s.toast)
 let timer: NodeJS.Timeout | null = null
 
 const Toast = {
-  show: (info: string, config?: { timeout?: number; position?: 'bottom' | 'center' }) => {
+  show: (info: string, config?: { timeout?: number; position?: 'bottom' | 'center' | 'top' }) => {
     if (timer) {
       clearTimeout(timer)
       body.removeChild(toast)
     }
     if (config?.position === 'center') {
       toast.style.top = '50%'
+      toast.style.transform = 'translate(-50%, -50%)'
+    } else if (config?.position === 'top') {
+      toast.style.top = '20%'
       toast.style.transform = 'translate(-50%, -50%)'
     } else {
       toast.style.top = ''

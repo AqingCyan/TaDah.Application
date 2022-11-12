@@ -14,6 +14,7 @@ const AddRecord = () => {
   const [amountCountFen, setAmountCountFen] = useState<number>(0)
   const [descContent, setDescCount] = useState<string>('')
 
+  const overBiggestAmount = useMemo(() => amountCountFen >= 2147483647300, [amountCountFen])
   const overMaxCount = useMemo(() => descContent.length >= 100, [descContent])
 
   const handleAmountCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,23 +23,14 @@ const AddRecord = () => {
       setAmountCountFen(0)
       return
     }
-    if (/^\d+(\.\d{1,2})?$/.test(value)) {
-      if (value.length <= 10) {
-        const result = parseFloat(value)
-        if (result * 100 <= 21474836473) {
-          setAmountCountFen(result * 100)
-        } else {
-          Toast.show('数额太大啦', { position: 'center' })
-        }
-      } else {
-        Toast.show('数额太大啦', { position: 'center' })
-      }
+    if (/^\d+(\.\d{1,2})?$/.test(value) && value.length <= 12) {
+      setAmountCountFen(parseFloat(value) * 100)
     }
   }
 
   return (
     <div className={s.pageContainer}>
-      <section className={s.inputMoney}>
+      <section className={overBiggestAmount ? s.inputMoneyError : s.inputMoney}>
         <span className={s.icon}>¥</span>
         <input
           type="number"
@@ -46,6 +38,7 @@ const AddRecord = () => {
           onChange={handleAmountCountChange}
           value={amountCountFen <= 0 ? undefined : amountCountFen / 100}
         />
+        <span className={s.error}>数额太大</span>
       </section>
       <section className={s.amountType}>
         <div
