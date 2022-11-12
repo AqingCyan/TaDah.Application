@@ -16,18 +16,18 @@ const AddRecord = () => {
         <input placeholder="请输入金额（必填）" />
       </section>
       <section className={s.amountType}>
-        <button
+        <div
           className={amountType === AmountType.paid ? s.notSelect : undefined}
           onClick={() => setAmountType(AmountType.earning)}
         >
           收入项
-        </button>
-        <button
+        </div>
+        <div
           className={amountType === AmountType.earning ? s.notSelect : undefined}
           onClick={() => setAmountType(AmountType.paid)}
         >
           支出项
-        </button>
+        </div>
       </section>
 
       <section className={s.describe}>

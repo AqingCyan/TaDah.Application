@@ -8,14 +8,12 @@ export default function Layout() {
   const [showOpenInWechat, setShowOpenInWechat] = useState<boolean>(false)
 
   useEffect(() => {
-    setTimeout(() => setShowOpenInWechat(!isInWeChat()), 100)
+    setTimeout(() => setShowOpenInWechat(isInWeChat()), 100)
   }, [isInWeChat()])
 
   return (
     <>
-      <div>
-        <Outlet />
-      </div>
+      <Outlet />
       <section
         className={s.mask}
         style={showOpenInWechat ? { background: 'rgba(31, 36, 46, 0.3)' } : { pointerEvents: 'none' }}
