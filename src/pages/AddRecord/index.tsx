@@ -18,7 +18,7 @@ const AddRecord = () => {
     <div className={s.pageContainer}>
       <section className={s.inputMoney}>
         <span className={s.icon}>¥</span>
-        <input placeholder="请输入金额（必填）" type="number" pattern="\d*|." />
+        <input placeholder="请输入金额（必填）" type="number" />
       </section>
       <section className={s.amountType}>
         <div
