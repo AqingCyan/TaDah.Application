@@ -11,6 +11,19 @@ export default function Layout() {
     setTimeout(() => setShowOpenInWechat(!isInWeChat()), 100)
   }, [isInWeChat()])
 
+  useEffect(() => {
+    window.onload = function () {
+      document.addEventListener('touchstart', function (event) {
+        if (event.touches.length > 1) {
+          event.preventDefault()
+        }
+      })
+      document.addEventListener('gesturestart', function (event) {
+        event.preventDefault()
+      })
+    }
+  }, [])
+
   return (
     <>
       <Outlet />
