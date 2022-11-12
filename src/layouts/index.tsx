@@ -8,7 +8,7 @@ export default function Layout() {
   const [showOpenInWechat, setShowOpenInWechat] = useState<boolean>(false)
 
   useEffect(() => {
-    setTimeout(() => setShowOpenInWechat(isInWeChat()), 100)
+    setTimeout(() => setShowOpenInWechat(!isInWeChat()), 100)
   }, [isInWeChat()])
 
   return (

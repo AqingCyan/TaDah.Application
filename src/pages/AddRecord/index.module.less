@@ -82,7 +82,8 @@
     }
   }
 
-  .describe {
+  .describe,
+  .describeError {
     position: relative;
 
     .count {
@@ -124,6 +125,30 @@
 
         &:first-of-type + span {
           color: var(--input-foucs-color);
+        }
+      }
+    }
+  }
+
+  .describeError {
+    .count {
+      color: crimson;
+    }
+
+    textarea {
+      border-color: crimson;
+      background: rgba(220, 20, 60, 0.1);
+
+      &:focus {
+        border-color: crimson;
+        background: rgba(220, 20, 60, 0.1);
+
+        &::placeholder {
+          color: crimson;
+        }
+
+        &:first-of-type + span {
+          color: crimson;
         }
       }
     }
