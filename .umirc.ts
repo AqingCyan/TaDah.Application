@@ -10,4 +10,14 @@ export default {
       viewportWidth: 750,
     }),
   ],
+  routes: [
+    {
+      path: '/',
+      component: '@/layouts/index',
+      routes: [
+        { path: '/', redirect: '/addRecord' },
+        { path: '/addRecord', component: '@/pages/AddRecord' },
+      ],
+    },
+  ],
 }

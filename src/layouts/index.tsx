@@ -7,7 +7,9 @@ import s from './index.less'
 export default function Layout() {
   const [showOpenInWechat, setShowOpenInWechat] = useState<boolean>(false)
 
-  useEffect(() => setShowOpenInWechat(!isInWeChat()), [isInWeChat()])
+  useEffect(() => {
+    setTimeout(() => setShowOpenInWechat(isInWeChat()), 100)
+  }, [isInWeChat()])
 
   return (
     <>
