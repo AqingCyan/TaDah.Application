@@ -1,41 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet } from 'umi'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
-import BottomNavigation from '@mui/material/BottomNavigation'
-import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined'
-import AddCardIcon from '@mui/icons-material/AddCard'
-import LineAxisRoundedIcon from '@mui/icons-material/LineAxisRounded'
-import Paper from '@mui/material/Paper'
-import styles from './index.less'
-
-const darkTheme = createTheme({
-  palette: { mode: 'light' },
-})
+import { isInWeChat } from '@/utils/helpers'
+import QRCODE from '../assets/qrcode.jpg'
+import s from './index.less'
 
 export default function Layout() {
-  const [value, setValue] = React.useState(0)
+  const [showOpenInWechat, setShowOpenInWechat] = useState<boolean>(false)
+
+  useEffect(() => setShowOpenInWechat(!isInWeChat()), [isInWeChat()])
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <div className={styles.navs}>
+    <>
+      <div>
         <Outlet />
-        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-          <BottomNavigation
-            showLabels
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue)
-            }}
-          >
-            <BottomNavigationAction label="清单" icon={<AccountBalanceWalletOutlinedIcon />} />
-            <BottomNavigationAction label="记账" icon={<AddCardIcon />} />
-            <BottomNavigationAction label="趋势" icon={<LineAxisRoundedIcon />} />
-          </BottomNavigation>
-        </Paper>
       </div>
-    </ThemeProvider>
+      <section
+        className={s.mask}
+        style={showOpenInWechat ? { background: 'rgba(31, 36, 46, 0.3)' } : { pointerEvents: 'none' }}
+      >
+        <div className={s.modal} style={showOpenInWechat ? { opacity: 1 } : undefined}>
+          <p style={showOpenInWechat ? { opacity: 1 } : undefined}>检测到您在非微信环境打开</p>
+          <p style={showOpenInWechat ? { opacity: 1 } : undefined}>请您扫描下方二维码使用该应用</p>
+          <img style={showOpenInWechat ? { opacity: 1 } : undefined} src={QRCODE} alt="QRCODE" />
+        </div>
+      </section>
+    </>
   )
 }
