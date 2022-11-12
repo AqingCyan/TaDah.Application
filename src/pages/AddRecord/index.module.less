@@ -20,9 +20,9 @@
       border-radius: 24px;
       background: var(--input-background);
       border: 2px solid #e2e2e2;
-      outline-color: transparent;
+      outline: none;
       color: var(--primary-font-color);
-      transition: background 0.3s, outline-color 0.3s;
+      transition: background 0.3s, border 0.3s;
 
       &::placeholder {
         font-size: 32px;
@@ -31,7 +31,7 @@
       }
 
       &:focus {
-        outline-color: var(--input-foucs-color);
+        border-color: var(--input-foucs-color);
         background: var(--input-foucs-background);
 
         &::placeholder {
@@ -68,6 +68,7 @@
       color: #ffffff;
       font-size: 32px;
       font-weight: bold;
+      outline: none;
       transition: background-color 0.2s, color 0.2s, border 0.2s;
     }
 
@@ -99,10 +100,10 @@
       border-radius: 24px;
       font-size: 32px;
       border: 2px solid #e2e2e2;
-      outline-color: transparent;
       background: var(--input-background);
       color: var(--primary-font-color);
-      transition: background 0.3s, outline-color 0.3s;
+      outline: none;
+      transition: background 0.3s, border 0.3s;
 
       &::placeholder {
         font-size: 32px;
@@ -111,7 +112,7 @@
       }
 
       &:focus {
-        outline-color: var(--input-foucs-color);
+        border-color: var(--input-foucs-color);
         background: var(--input-foucs-background);
 
         &::placeholder {
