@@ -101,7 +101,7 @@ const AddRecord = () => {
             style={hideAddText ? { opacity: 0 } : undefined}
             onTouchStart={() => {
               setHideAddText(true)
-              setTimeout(() => setShowTagPicker(true), 300)
+              setTimeout(() => setShowTagPicker(true), 200)
             }}
           >
             <img src={addIcon} alt="addIcon" />
@@ -115,7 +115,7 @@ const AddRecord = () => {
               <button
                 onTouchStart={() => {
                   setHideAddText(false)
-                  setTimeout(() => setShowTagPicker(false), 300)
+                  setTimeout(() => setShowTagPicker(false), 200)
                 }}
               >
                 确定
