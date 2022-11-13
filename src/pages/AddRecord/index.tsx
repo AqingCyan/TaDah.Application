@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import Emoji from '@/components/Emoji'
 import emojiData from '@emoji-mart/data'
 import addIcon from '@/assets/addIcon.svg'
@@ -19,6 +19,8 @@ const mockTagList = [
 ]
 
 const AddRecord = () => {
+  const timer = useRef<NodeJS.Timeout>()
+
   const [amountType, setAmountType] = useState<AmountType>(1)
   const [amountCountFen, setAmountCountFen] = useState<number>(0)
   const [descContent, setDescCount] = useState<string>('')
@@ -26,6 +28,7 @@ const AddRecord = () => {
   const [hideAddText, setHideAddText] = useState<boolean>(false)
   const [showTagPicker, setShowTagPicker] = useState<boolean>(false)
   const [selectEmoji, setSelectEmoji] = useState<string>()
+  const [showEdit, setShowEdit] = useState<boolean>(false)
 
   const overBiggestAmount = useMemo(() => amountCountFen >= 2147483647300, [amountCountFen])
   const overMaxCount = useMemo(() => descContent.length >= 100, [descContent])
@@ -87,7 +90,14 @@ const AddRecord = () => {
             <div
               key={item.name}
               className={selectTagName === item.name ? s.selectedTag : s.defaultTag}
-              onTouchStart={() => setSelectTagName(item.name)}
+              onTouchStart={() => {
+                // 一直按着不放触发编辑状态
+                timer.current = setTimeout(() => setShowEdit(true), 500)
+              }}
+              onTouchEnd={() => {
+                window.clearTimeout(timer.current)
+                setSelectTagName(item.name)
+              }}
             >
               <div>
                 <Emoji size="1.5em" shortcodes={item.emoji} />
