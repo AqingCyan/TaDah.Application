@@ -1,24 +1,19 @@
 import React, { useMemo, useState } from 'react'
-import data from '@emoji-mart/data'
-import { init } from 'emoji-mart'
+import Emoji from '@/components/Emoji'
 import s from './index.module.less'
-
-init({ data })
 
 enum AmountType {
   paid = 0,
   earning = 1,
 }
 
-console.log(data)
-
 const MAX_COUNT = 100
 
 const mockTagList = [
-  { emoji: '👨🏻‍💻', name: '工作开销' },
-  { emoji: '🎃', name: '万圣节' },
-  { emoji: '✍️', name: '文具用品' },
-  { emoji: '🎁', name: '朋友的礼物' },
+  { emoji: '+1', name: '工作开销' },
+  { emoji: 'grinning', name: '开心的事情' },
+  { emoji: 'auto_rickshaw', name: '打工花费' },
+  { emoji: 'canoe', name: '划船' },
 ]
 
 const AddRecord = () => {
@@ -88,20 +83,22 @@ const AddRecord = () => {
             className={selectTagName === item.name ? s.selectedTag : s.defaultTag}
             onTouchStart={() => setSelectTagName(selectTagName === item.name ? '' : item.name)}
           >
-            <span>{item.emoji}</span>
+            <div>
+              <Emoji size="1.5em" shortcodes={item.emoji} />
+            </div>
             <span>{item.name}</span>
           </div>
         ))}
       </section>
-      {data.categories.map((item) => (
-        <>
-          <p>{item.id}</p>
-          {item.emojis.map((ele) => (
-            // @ts-ignore
-            <em-emoji shortcodes={`:${ele}:`} />
-          ))}
-        </>
-      ))}
+      {/*{data.categories.map((item) => (*/}
+      {/*  <>*/}
+      {/*    <p>{item.id}</p>*/}
+      {/*    {item.emojis.map((ele) => (*/}
+      {/*      // @ts-ignore*/}
+      {/*      <em-emoji shortcodes={`:${ele}:`} size="1.5em" />*/}
+      {/*    ))}*/}
+      {/*  </>*/}
+      {/*))}*/}
     </div>
   )
 }

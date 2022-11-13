@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react'
+import { init } from 'emoji-mart'
+import emojiData from '@emoji-mart/data'
 import { Outlet } from 'umi'
 import { disableIOSTouchZoom, isInWeChat } from '@/utils/helpers'
 import qrcode_img from '../assets/qrcode.jpg'
 import s from './index.less'
+import Toast from '@/components/Toast'
 
 export default function Layout() {
   const [showOpenInWechat, setShowOpenInWechat] = useState<boolean>(false)
 
   const checkBrowserAndModal = () => {
-    setTimeout(() => setShowOpenInWechat(isInWeChat()), 100)
+    setTimeout(() => setShowOpenInWechat(!isInWeChat()), 100)
+  }
+
+  const loadEmoji = () => {
+    init({ data: emojiData }).catch(() => Toast.show('emoji加载失败，可能消费类目展示错误', { position: 'center' }))
   }
 
   useEffect(disableIOSTouchZoom, [])
   useEffect(checkBrowserAndModal, [isInWeChat()])
+  useEffect(loadEmoji, [])
 
   return (
     <>
