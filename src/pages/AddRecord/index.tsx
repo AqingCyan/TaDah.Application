@@ -94,7 +94,7 @@ const AddRecord = () => {
                 // 一直按着不放触发编辑状态
                 timer.current = setTimeout(() => {
                   setShowEdit(true)
-                  window.navigator.vibrate(200)
+                  setSelectTagName(item.name)
                 }, 500)
               }}
               onTouchEnd={() => {
