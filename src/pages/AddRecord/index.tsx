@@ -92,7 +92,10 @@ const AddRecord = () => {
               className={selectTagName === item.name ? s.selectedTag : s.defaultTag}
               onTouchStart={() => {
                 // 一直按着不放触发编辑状态
-                timer.current = setTimeout(() => setShowEdit(true), 500)
+                timer.current = setTimeout(() => {
+                  setShowEdit(true)
+                  window.navigator.vibrate(200)
+                }, 500)
               }}
               onTouchEnd={() => {
                 window.clearTimeout(timer.current)
