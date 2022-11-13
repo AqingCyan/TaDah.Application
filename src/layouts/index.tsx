@@ -11,7 +11,7 @@ export default function Layout() {
   const [showOpenInWechat, setShowOpenInWechat] = useState<boolean>(false)
 
   const checkBrowserAndModal = () => {
-    setTimeout(() => setShowOpenInWechat(isInWeChat()), 100)
+    // setTimeout(() => setShowOpenInWechat(isInWeChat()), 100)
   }
 
   const loadEmoji = () => {
