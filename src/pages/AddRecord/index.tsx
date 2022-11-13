@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import Emoji from '@/components/Emoji'
+import emojiData from '@emoji-mart/data'
+import addIcon from '@/assets/addIcon.svg'
 import s from './index.module.less'
 
 enum AmountType {
@@ -21,6 +23,8 @@ const AddRecord = () => {
   const [amountCountFen, setAmountCountFen] = useState<number>(0)
   const [descContent, setDescCount] = useState<string>('')
   const [selectTagName, setSelectTagName] = useState<string>('工作开销')
+  const [hideAddText, setHideAddText] = useState<boolean>(false)
+  const [showTagPicker, setShowTagPicker] = useState<boolean>(false)
 
   const overBiggestAmount = useMemo(() => amountCountFen >= 2147483647300, [amountCountFen])
   const overMaxCount = useMemo(() => descContent.length >= 100, [descContent])
@@ -90,15 +94,45 @@ const AddRecord = () => {
           </div>
         ))}
       </section>
-      {/*{data.categories.map((item) => (*/}
-      {/*  <>*/}
-      {/*    <p>{item.id}</p>*/}
-      {/*    {item.emojis.map((ele) => (*/}
-      {/*      // @ts-ignore*/}
-      {/*      <em-emoji shortcodes={`:${ele}:`} size="1.5em" />*/}
-      {/*    ))}*/}
-      {/*  </>*/}
-      {/*))}*/}
+      <section className={hideAddText ? `${s.addNewTag} ${s.openTagPicker}` : s.addNewTag}>
+        {!showTagPicker ? (
+          <div
+            className={s.addText}
+            style={hideAddText ? { opacity: 0 } : undefined}
+            onTouchStart={() => {
+              setHideAddText(true)
+              setTimeout(() => setShowTagPicker(true), 400)
+            }}
+          >
+            <img src={addIcon} alt="addIcon" />
+            添加类目
+          </div>
+        ) : null}
+        {hideAddText ? (
+          <div className={s.emojiList} style={showTagPicker ? { opacity: 1 } : undefined}>
+            <div className={s.tagName}>
+              <input type="text" />
+              <button
+                onTouchStart={() => {
+                  setShowTagPicker(false)
+                  setTimeout(() => setHideAddText(false), 400)
+                }}
+              >
+                确定
+              </button>
+            </div>
+            <div className={s.emojiBox}>
+              {emojiData.categories.map((item) =>
+                item.emojis.map((ele) => (
+                  <div className={s.emoji}>
+                    <Emoji shortcodes={ele} size="1.5em" />
+                  </div>
+                )),
+              )}
+            </div>
+          </div>
+        ) : null}
+      </section>
     </div>
   )
 }
