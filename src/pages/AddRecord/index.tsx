@@ -43,99 +43,104 @@ const AddRecord = () => {
 
   return (
     <div className={s.pageContainer}>
-      <section className={overBiggestAmount ? s.inputMoneyError : s.inputMoney}>
-        <span className={s.icon}>¥</span>
-        <input
-          type="number"
-          placeholder="请输入金额"
-          onChange={handleAmountCountChange}
-          value={amountCountFen <= 0 ? undefined : amountCountFen / 100}
-        />
-        <span className={s.error}>数额太大</span>
-      </section>
-      <section className={s.amountType}>
-        <div
-          className={amountType === AmountType.paid ? s.notSelect : undefined}
-          onTouchStart={() => setAmountType(AmountType.earning)}
-        >
-          收入项
-        </div>
-        <div
-          className={amountType === AmountType.earning ? s.notSelect : undefined}
-          onTouchStart={() => setAmountType(AmountType.paid)}
-        >
-          支出项
-        </div>
-      </section>
-
-      <section className={overMaxCount ? s.describeError : s.describe}>
-        <textarea
-          placeholder="请输入记帐描述"
-          value={descContent}
-          onChange={(e) => {
-            if (e.target.value.length <= MAX_COUNT) {
-              setDescCount(e.target.value)
-            }
-          }}
-        />
-        <span className={s.count}>{descContent.length}/100</span>
-      </section>
-
-      <section className={s.amountTag}>
-        {mockTagList.map((item) => (
+      <div>
+        <section className={overBiggestAmount ? s.inputMoneyError : s.inputMoney}>
+          <span className={s.icon}>¥</span>
+          <input
+            type="number"
+            placeholder="请输入金额"
+            onChange={handleAmountCountChange}
+            value={amountCountFen <= 0 ? undefined : amountCountFen / 100}
+          />
+          <span className={s.error}>数额太大</span>
+        </section>
+        <section className={s.amountType}>
           <div
-            key={item.name}
-            className={selectTagName === item.name ? s.selectedTag : s.defaultTag}
-            onTouchStart={() => setSelectTagName(item.name)}
+            className={amountType === AmountType.paid ? s.notSelect : undefined}
+            onTouchStart={() => setAmountType(AmountType.earning)}
           >
-            <div>
-              <Emoji size="1.5em" shortcodes={item.emoji} />
-            </div>
-            <span>{item.name}</span>
+            收入项
           </div>
-        ))}
-      </section>
-      <section className={hideAddText ? `${s.addNewTag} ${s.openTagPicker}` : s.addNewTag}>
-        {!showTagPicker ? (
           <div
-            className={s.addText}
-            style={hideAddText ? { opacity: 0 } : undefined}
-            onTouchStart={() => {
-              setHideAddText(true)
-              setTimeout(() => setShowTagPicker(true), 200)
+            className={amountType === AmountType.earning ? s.notSelect : undefined}
+            onTouchStart={() => setAmountType(AmountType.paid)}
+          >
+            支出项
+          </div>
+        </section>
+
+        <section className={overMaxCount ? s.describeError : s.describe}>
+          <textarea
+            placeholder="请输入记帐描述"
+            value={descContent}
+            onChange={(e) => {
+              if (e.target.value.length <= MAX_COUNT) {
+                setDescCount(e.target.value)
+              }
             }}
-          >
-            <img src={addIcon} alt="addIcon" />
-            添加类目
-          </div>
-        ) : null}
-        {hideAddText ? (
-          <div className={s.emojiList} style={showTagPicker ? { opacity: 1 } : undefined}>
-            <div className={s.tagName}>
-              <input type="text" placeholder="请输入类目名（5字）" />
-              <button
-                onTouchStart={() => {
-                  setHideAddText(false)
-                  setTimeout(() => setShowTagPicker(false), 200)
-                }}
-              >
-                确定
-              </button>
+          />
+          <span className={s.count}>{descContent.length}/100</span>
+        </section>
+
+        <section className={s.amountTag}>
+          {mockTagList.map((item) => (
+            <div
+              key={item.name}
+              className={selectTagName === item.name ? s.selectedTag : s.defaultTag}
+              onTouchStart={() => setSelectTagName(item.name)}
+            >
+              <div>
+                <Emoji size="1.5em" shortcodes={item.emoji} />
+              </div>
+              <span>{item.name}</span>
             </div>
-            <div className={s.emojiBox}>
-              {Array.from(new Set(emojiData.categories.map((item) => item.emojis.map((ele) => ele)).flat())).map(
-                (emoji) => (
-                  <div
-                    className={selectEmoji === emoji ? s.selectedEmoji : s.emoji}
-                    onTouchStart={() => setSelectEmoji(emoji)}
-                  >
-                    <Emoji shortcodes={emoji} size="1.5em" />
-                  </div>
-                ),
-              )}
+          ))}
+        </section>
+        <section className={hideAddText ? `${s.addNewTag} ${s.openTagPicker}` : s.addNewTag}>
+          {!showTagPicker ? (
+            <div
+              className={s.addText}
+              style={hideAddText ? { opacity: 0 } : undefined}
+              onTouchStart={() => {
+                setHideAddText(true)
+                setTimeout(() => setShowTagPicker(true), 200)
+              }}
+            >
+              <img src={addIcon} alt="addIcon" />
+              添加类目
             </div>
-          </div>
-        ) : null}
+          ) : null}
+          {hideAddText ? (
+            <div className={s.emojiList} style={showTagPicker ? { opacity: 1 } : undefined}>
+              <div className={s.tagName}>
+                <input type="text" placeholder="请输入类目名（5字）" />
+                <button
+                  onTouchStart={() => {
+                    setHideAddText(false)
+                    setTimeout(() => setShowTagPicker(false), 200)
+                  }}
+                >
+                  确定
+                </button>
+              </div>
+              <div className={s.emojiBox}>
+                {Array.from(new Set(emojiData.categories.map((item) => item.emojis.map((ele) => ele)).flat())).map(
+                  (emoji) => (
+                    <div
+                      className={selectEmoji === emoji ? s.selectedEmoji : s.emoji}
+                      onTouchStart={() => setSelectEmoji(emoji)}
+                    >
+                      <Emoji shortcodes={emoji} size="1.5em" />
+                    </div>
+                  ),
+                )}
+              </div>
+            </div>
+          ) : null}
+        </section>
+      </div>
+      <section className={s.submit}>
+        <button>确定记账</button>
       </section>
     </div>
   )
