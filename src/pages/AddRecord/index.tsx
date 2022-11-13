@@ -1,4 +1,7 @@
+// @ts-ignore
+import Picker from '@emoji-mart/react'
 import React, { useMemo, useState } from 'react'
+import data from '@emoji-mart/data'
 import s from './index.module.less'
 
 enum AmountType {
@@ -87,6 +90,7 @@ const AddRecord = () => {
           </div>
         ))}
       </section>
+      <Picker data={data} onEmojiSelect={console.log} theme="light" locale="zh" />
     </div>
   )
 }

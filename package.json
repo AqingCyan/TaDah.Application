@@ -10,6 +10,9 @@
     "start": "pnpm run dev"
   },
   "dependencies": {
+    "@emoji-mart/data": "^1.0.8",
+    "@emoji-mart/react": "^1.0.1",
+    "emoji-mart": "^5.3.2",
     "umi": "^4.0.30"
   },
   "devDependencies": {

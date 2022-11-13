@@ -1,9 +1,12 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@emoji-mart/data': ^1.0.8
+  '@emoji-mart/react': ^1.0.1
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
   autoprefixer: ^10.4.13
+  emoji-mart: ^5.3.2
   postcss-px-to-viewport: ^1.1.1
   prettier: ^2
   prettier-plugin-organize-imports: ^2
@@ -12,6 +15,9 @@ specifiers:
   umi: ^4.0.30
 
 dependencies:
+  '@emoji-mart/data': 1.0.8
+  '@emoji-mart/react': 1.0.1_emoji-mart@5.3.2
+  emoji-mart: 5.3.2
   umi: 4.0.30_7e5n6a4iats3tgjwmc7ppm2lci
 
 devDependencies:
@@ -685,6 +691,19 @@ packages:
       postcss-selector-parser: ^6.0.10
     dependencies:
       postcss-selector-parser: 6.0.10
+    dev: false
+
+  /@emoji-mart/data/1.0.8:
+    resolution: {integrity: sha512-AMpqLrR80dHfj8ZA6xaf8/t9reBy88vz07fBdwKVVoUX6X2Wi+R2p2uhIZFqNZe8zRd6kga3hKheqK+deElEZw==}
+    dev: false
+
+  /@emoji-mart/react/1.0.1_emoji-mart@5.3.2:
+    resolution: {integrity: sha512-ALhLD96BOL5w+a4NI5NpmfqfF1aVjjj2qJE0dLst/OhjBfVmpteWNgn/h8LZy9ulU6AnbeS+13KnPFzDjCvRRw==}
+    peerDependencies:
+      emoji-mart: ^5.2
+      react: ^16.8 || ^17 || ^18
+    dependencies:
+      emoji-mart: 5.3.2
     dev: false
 
   /@esbuild-kit/cjs-loader/2.4.0:
@@ -2683,6 +2702,10 @@ packages:
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
       minimalistic-crypto-utils: 1.0.1
+    dev: false
+
+  /emoji-mart/5.3.2:
+    resolution: {integrity: sha512-og6K4jYkZITe8pnFPHdFE576Tc6fCFl8JPhl98jRunH3bDulk3iqA+6Ue0iUZ/L/GWzLf9XME9QnpBd53N5YTg==}
     dev: false
 
   /emoji-regex/8.0.0:
