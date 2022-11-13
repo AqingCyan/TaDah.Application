@@ -123,7 +123,7 @@
   .describe,
   .describeError {
     position: relative;
-    height: 300px;
+    height: 250px;
 
     .count {
       position: absolute;
@@ -135,7 +135,7 @@
     }
 
     textarea {
-      height: 300px;
+      height: 250px;
       width: 686px;
       padding: 32px;
       resize: none;
@@ -258,6 +258,7 @@
     background: var(--button-not-select-background);
     border: 2px solid #e2e2e2;
     border-radius: 24px;
+    overflow: hidden;
     transition: height 0.4s;
 
     .addText {
@@ -300,8 +301,24 @@
           border: 2px solid #e2e2e2;
           outline: none;
           border-radius: 40px;
+          font-size: 32px;
           color: var(--primary-font-color);
           transition: background 0.2s, border 0.2s;
+
+          &::placeholder {
+            font-size: 32px;
+            color: var(--input-placeholder-color);
+            transition: color 0.2s;
+          }
+
+          &:focus {
+            border-color: var(--input-foucs-color);
+            background: var(--input-foucs-background);
+
+            &::placeholder {
+              color: var(--input-foucs-color);
+            }
+          }
         }
 
         button {
@@ -322,7 +339,8 @@
         height: 340px;
         overflow: auto;
 
-        .emoji {
+        .emoji,
+        .selectedEmoji {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -331,11 +349,17 @@
           margin: 0 27px 28px 0;
           background: #f2f2f2;
           border-radius: 50%;
-          transition: background 0.2s;
+          transition: background 0.1s, border 0.1s;
 
           &:nth-child(6n) {
             margin-right: 0;
           }
+        }
+
+        .selectedEmoji {
+          border: 1px solid var(--primary-color);
+          background: var(--emoji-select-background);
+          box-sizing: border-box;
         }
       }
     }

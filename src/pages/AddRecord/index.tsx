@@ -25,6 +25,7 @@ const AddRecord = () => {
   const [selectTagName, setSelectTagName] = useState<string>('工作开销')
   const [hideAddText, setHideAddText] = useState<boolean>(false)
   const [showTagPicker, setShowTagPicker] = useState<boolean>(false)
+  const [selectEmoji, setSelectEmoji] = useState<string>()
 
   const overBiggestAmount = useMemo(() => amountCountFen >= 2147483647300, [amountCountFen])
   const overMaxCount = useMemo(() => descContent.length >= 100, [descContent])
@@ -85,7 +86,7 @@ const AddRecord = () => {
           <div
             key={item.name}
             className={selectTagName === item.name ? s.selectedTag : s.defaultTag}
-            onTouchStart={() => setSelectTagName(selectTagName === item.name ? '' : item.name)}
+            onTouchStart={() => setSelectTagName(item.name)}
           >
             <div>
               <Emoji size="1.5em" shortcodes={item.emoji} />
@@ -111,7 +112,7 @@ const AddRecord = () => {
         {hideAddText ? (
           <div className={s.emojiList} style={showTagPicker ? { opacity: 1 } : undefined}>
             <div className={s.tagName}>
-              <input type="text" />
+              <input type="text" placeholder="请输入类目名（5字）" />
               <button
                 onTouchStart={() => {
                   setHideAddText(false)
@@ -122,12 +123,15 @@ const AddRecord = () => {
               </button>
             </div>
             <div className={s.emojiBox}>
-              {emojiData.categories.map((item) =>
-                item.emojis.map((ele) => (
-                  <div className={s.emoji}>
-                    <Emoji shortcodes={ele} size="1.5em" />
+              {Array.from(new Set(emojiData.categories.map((item) => item.emojis.map((ele) => ele)).flat())).map(
+                (emoji) => (
+                  <div
+                    className={selectEmoji === emoji ? s.selectedEmoji : s.emoji}
+                    onTouchStart={() => setSelectEmoji(emoji)}
+                  >
+                    <Emoji shortcodes={emoji} size="1.5em" />
                   </div>
-                )),
+                ),
               )}
             </div>
           </div>
