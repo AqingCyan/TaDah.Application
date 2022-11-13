@@ -2,7 +2,6 @@ lockfileVersion: 5.4
 
 specifiers:
   '@emoji-mart/data': ^1.0.8
-  '@emoji-mart/react': ^1.0.1
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
   autoprefixer: ^10.4.13
@@ -16,7 +15,6 @@ specifiers:
 
 dependencies:
   '@emoji-mart/data': 1.0.8
-  '@emoji-mart/react': 1.0.1_emoji-mart@5.3.2
   emoji-mart: 5.3.2
   umi: 4.0.30_7e5n6a4iats3tgjwmc7ppm2lci
 
@@ -695,15 +693,6 @@ packages:
 
   /@emoji-mart/data/1.0.8:
     resolution: {integrity: sha512-AMpqLrR80dHfj8ZA6xaf8/t9reBy88vz07fBdwKVVoUX6X2Wi+R2p2uhIZFqNZe8zRd6kga3hKheqK+deElEZw==}
-    dev: false
-
-  /@emoji-mart/react/1.0.1_emoji-mart@5.3.2:
-    resolution: {integrity: sha512-ALhLD96BOL5w+a4NI5NpmfqfF1aVjjj2qJE0dLst/OhjBfVmpteWNgn/h8LZy9ulU6AnbeS+13KnPFzDjCvRRw==}
-    peerDependencies:
-      emoji-mart: ^5.2
-      react: ^16.8 || ^17 || ^18
-    dependencies:
-      emoji-mart: 5.3.2
     dev: false
 
   /@esbuild-kit/cjs-loader/2.4.0:

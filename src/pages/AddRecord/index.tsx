@@ -1,19 +1,22 @@
-// @ts-ignore
-import Picker from '@emoji-mart/react'
 import React, { useMemo, useState } from 'react'
 import data from '@emoji-mart/data'
+import { init } from 'emoji-mart'
 import s from './index.module.less'
+
+init({ data })
 
 enum AmountType {
   paid = 0,
   earning = 1,
 }
 
+console.log(data)
+
 const MAX_COUNT = 100
 
 const mockTagList = [
-  { emoji: '🎃', name: '万圣节' },
   { emoji: '👨🏻‍💻', name: '工作开销' },
+  { emoji: '🎃', name: '万圣节' },
   { emoji: '✍️', name: '文具用品' },
   { emoji: '🎁', name: '朋友的礼物' },
 ]
@@ -90,7 +93,15 @@ const AddRecord = () => {
           </div>
         ))}
       </section>
-      <Picker data={data} onEmojiSelect={console.log} theme="light" locale="zh" />
+      {data.categories.map((item) => (
+        <>
+          <p>{item.id}</p>
+          {item.emojis.map((ele) => (
+            // @ts-ignore
+            <em-emoji shortcodes={`:${ele}:`} />
+          ))}
+        </>
+      ))}
     </div>
   )
 }
