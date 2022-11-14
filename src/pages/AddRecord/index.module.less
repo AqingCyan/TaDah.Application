@@ -13,6 +13,8 @@
   .inputMoney,
   .inputMoneyError {
     position: relative;
+    box-shadow: var(--shadow-val);
+    border-radius: 24px;
 
     input {
       width: 686px;
@@ -22,7 +24,7 @@
       font-size: 32px;
       border-radius: 24px;
       background: var(--input-background);
-      border: 2px solid #e2e2e2;
+      border: 2px solid var(--not-active-border);
       outline: none;
       color: var(--primary-font-color);
       transition: background 0.2s, border 0.2s;
@@ -111,13 +113,14 @@
       font-size: 32px;
       font-weight: bold;
       outline: none;
+      box-shadow: var(--shadow-val);
       transition: background-color 0.2s, color 0.2s, border 0.2s;
     }
 
     .notSelect {
       color: var(--button-not-select-color);
       background: var(--button-not-select-background);
-      border-color: #e2e2e2;
+      border-color: var(--not-active-border);
     }
   }
 
@@ -125,6 +128,8 @@
   .describeError {
     position: relative;
     height: 250px;
+    box-shadow: var(--shadow-val);
+    border-radius: 24px;
 
     .count {
       position: absolute;
@@ -143,7 +148,7 @@
       box-sizing: border-box;
       border-radius: 24px;
       font-size: 32px;
-      border: 2px solid #e2e2e2;
+      border: 2px solid var(--not-active-border);
       background: var(--input-background);
       color: var(--primary-font-color);
       outline: none;
@@ -212,7 +217,8 @@
       box-sizing: border-box;
       background: #ffffff;
       border-radius: 24px;
-      border: 2px solid #e2e2e2;
+      border: 2px solid var(--not-active-border);
+      box-shadow: var(--shadow-val);
       transition: background 0.2s;
 
       & div:first-child {
@@ -258,9 +264,10 @@
     height: 116px;
     box-sizing: border-box;
     background: var(--button-not-select-background);
-    border: 2px solid #e2e2e2;
+    border: 2px solid var(--not-active-border);
     border-radius: 24px;
     overflow: hidden;
+    box-shadow: var(--shadow-val);
     transition: height 0.4s;
 
     .addText {
