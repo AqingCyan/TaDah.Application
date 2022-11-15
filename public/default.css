@@ -1,4 +1,4 @@
-:root {
+body {
   --page-background: rgba(0, 0, 0, 0.03);
 
   --modal-background: #ffffff;
@@ -20,26 +20,24 @@
   --emoji-select-background: #f2edff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --page-background: #000000;
+body.dark {
+  --page-background: rgba(0, 0, 0, 0.9);
 
-    --modal-background: #ffffff;
-    --primary-font-color: #333333;
+  --modal-background: #ffffff;
+  --primary-font-color: #333333;
 
-    --primary-color: #7647fd;
+  --primary-color: #7647fd;
 
-    --input-background: #242424;
-    --input-placeholder-color: #bbbbbb;
-    --input-foucs-color: rgba(150, 123, 299, 1);
-    --input-foucs-background: rgba(150, 123, 299, 0.2);
+  --input-background: #242424;
+  --input-placeholder-color: #bbbbbb;
+  --input-foucs-color: rgba(150, 123, 299, 1);
+  --input-foucs-background: rgba(150, 123, 299, 0.2);
 
-    --button-not-select-color: #ffffff;
-    --button-not-select-background: #242424;
+  --button-not-select-color: #ffffff;
+  --button-not-select-background: #242424;
 
-    --not-active-border: #242424;
-    --shadow-val: none;
+  --not-active-border: #242424;
+  --shadow-val: none;
 
-    --emoji-select-background: rgb(174, 154, 246);
-  }
+  --emoji-select-background: rgb(174, 154, 246);
 }
