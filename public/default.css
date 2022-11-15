@@ -1,21 +1,45 @@
 :root {
-    --page-background: rgba(0, 0, 0, 0.03);
+  --page-background: rgba(0, 0, 0, 0.03);
+
+  --modal-background: #ffffff;
+  --primary-font-color: #333333;
+
+  --primary-color: #7647fd;
+
+  --input-background: #ffffff;
+  --input-placeholder-color: #bbbbbb;
+  --input-foucs-color: rgba(150, 123, 299, 1);
+  --input-foucs-background: rgba(150, 123, 299, 0.1);
+
+  --button-not-select-color: #000000;
+  --button-not-select-background: #ffffff;
+
+  --not-active-border: #ffffff;
+  --shadow-val: 0px 10px 80px rgba(0, 0, 0, 0.08);
+
+  --emoji-select-background: #f2edff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page-background: #000000;
 
     --modal-background: #ffffff;
     --primary-font-color: #333333;
 
     --primary-color: #7647fd;
 
-    --input-background: #ffffff;
+    --input-background: #242424;
     --input-placeholder-color: #bbbbbb;
     --input-foucs-color: rgba(150, 123, 299, 1);
-    --input-foucs-background: rgba(150, 123, 299, 0.1);
+    --input-foucs-background: rgba(150, 123, 299, 0.2);
 
-    --button-not-select-color: #000000;
-    --button-not-select-background: #ffffff;
+    --button-not-select-color: #ffffff;
+    --button-not-select-background: #242424;
 
-    --not-active-border: #ffffff;
-    --shadow-val: 0px 10px 80px rgba(0, 0, 0, 0.08);
+    --not-active-border: #242424;
+    --shadow-val: none;
 
-    --emoji-select-background: #f2edff;
+    --emoji-select-background: rgb(174, 154, 246);
+  }
 }
