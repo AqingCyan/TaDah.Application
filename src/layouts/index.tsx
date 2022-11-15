@@ -22,16 +22,18 @@ export default function Layout() {
     }, 3000)
   }
 
-  useEffect(disableIOSTouchZoom, [])
-  useEffect(checkBrowserAndModal, [isInWeChat()])
-  useEffect(loadEmoji, [])
-  useEffect(() => {
+  const loadDarkMode = () => {
     if (isDark) {
       document.body.classList.add('dark')
     } else {
       document.body.classList.remove('dark')
     }
-  }, [isDark])
+  }
+
+  useEffect(disableIOSTouchZoom, [])
+  useEffect(checkBrowserAndModal, [isInWeChat()])
+  useEffect(loadEmoji, [])
+  useEffect(loadDarkMode, [isDark])
 
   return (
     <>
