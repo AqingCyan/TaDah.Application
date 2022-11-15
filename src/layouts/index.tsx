@@ -9,7 +9,6 @@ import s from './index.less'
 
 export default function Layout() {
   const [showOpenInWechat, setShowOpenInWechat] = useState<boolean>(false)
-  const [isDark, setIsDark] = useState<boolean>(false)
 
   const checkBrowserAndModal = () => {
     // setTimeout(() => setShowOpenInWechat(!isInWeChat()), 100)
@@ -17,23 +16,11 @@ export default function Layout() {
 
   const loadEmoji = () => {
     init({ data: emojiData }).catch(() => Toast.show('emoji加载失败，可能消费类目展示错误', { position: 'center' }))
-    setTimeout(() => {
-      setIsDark(true)
-    }, 3000)
-  }
-
-  const loadDarkMode = () => {
-    if (isDark) {
-      document.body.classList.add('dark')
-    } else {
-      document.body.classList.remove('dark')
-    }
   }
 
   useEffect(disableIOSTouchZoom, [])
   useEffect(checkBrowserAndModal, [isInWeChat()])
   useEffect(loadEmoji, [])
-  useEffect(loadDarkMode, [isDark])
 
   return (
     <>

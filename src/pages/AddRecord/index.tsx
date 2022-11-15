@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react'
 import Emoji from '@/components/Emoji'
+import TopInfo from '@/components/TopInfo'
 import emojiData from '@emoji-mart/data'
 import addIcon from '@/assets/addIcon.svg'
 import s from './index.module.less'
@@ -47,6 +48,7 @@ const AddRecord = () => {
   return (
     <div className={s.pageContainer}>
       <div>
+        <TopInfo date={Date.now()} />
         <section className={overBiggestAmount ? s.inputMoneyError : s.inputMoney}>
           <span className={s.icon}>¥</span>
           <input
