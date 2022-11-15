@@ -18,6 +18,8 @@ body {
   --shadow-val: 0px 10px 80px rgba(0, 0, 0, 0.08);
 
   --emoji-select-background: #f2edff;
+  --emoji-picker-input-background: #ffffff;
+  --emoji-picker-input-border: #e2e2e2;
 
   --theme-icon-color: #385b4e;
 }
@@ -42,6 +44,8 @@ body.dark {
   --shadow-val: none;
 
   --emoji-select-background: rgb(174, 154, 246);
+  --emoji-picker-input-background: #3d3d3d;
+  --emoji-picker-input-border: #3d3d3d;
 
   --theme-icon-color: #2a7555;
 }
@@ -66,6 +70,8 @@ body.green {
   --shadow-val: none;
 
   --emoji-select-background: #98f578;
+  --emoji-picker-input-background: #ffffff;
+  --emoji-picker-input-border: #e2e2e2;
 
   --theme-icon-color: #7647fd;
 }
@@ -86,10 +92,12 @@ body.greenDark {
   --button-not-select-color: #ffffff;
   --button-not-select-background: #242424;
 
-  --not-active-border: #242424;
+  --not-active-border: #3d3d3d;
   --shadow-val: none;
 
   --emoji-select-background: #98f578;
+  --emoji-picker-input-background: #3d3d3d;
+  --emoji-picker-input-border: #3d3d3d;
 
   --theme-icon-color: #7647fd;
 }

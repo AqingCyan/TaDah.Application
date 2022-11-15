@@ -2,7 +2,10 @@ import React, { useMemo, useRef, useState } from 'react'
 import Emoji from '@/components/Emoji'
 import TopInfo from '@/components/TopInfo'
 import emojiData from '@emoji-mart/data'
-import addIcon from '@/assets/addIcon.svg'
+import useTheme from '@/hooks/useTheme'
+import addIconGreen from '@/assets/addIconGreen.svg'
+import addIconWhite from '@/assets/addIconWhite.svg'
+import addIconPurple from '@/assets/addIconPurple.svg'
 import s from './index.module.less'
 
 enum AmountType {
@@ -22,6 +25,8 @@ const mockTagList = [
 const AddRecord = () => {
   const timer = useRef<NodeJS.Timeout>()
 
+  const { theme, inDark } = useTheme()
+
   const [amountType, setAmountType] = useState<AmountType>(1)
   const [amountCountFen, setAmountCountFen] = useState<number>(0)
   const [descContent, setDescCount] = useState<string>('')
@@ -31,8 +36,19 @@ const AddRecord = () => {
   const [selectEmoji, setSelectEmoji] = useState<string>()
   const [showEdit, setShowEdit] = useState<boolean>(false)
 
+  const computeAddIcon = () => {
+    switch (theme) {
+      case 'green':
+        return inDark ? addIconWhite : addIconGreen
+      case 'purple':
+      default:
+        return inDark ? addIconWhite : addIconPurple
+    }
+  }
+
   const overBiggestAmount = useMemo(() => amountCountFen >= 2147483647300, [amountCountFen])
   const overMaxCount = useMemo(() => descContent.length >= 100, [descContent])
+  const addIcon = useMemo(computeAddIcon, [theme, inDark])
 
   const handleAmountCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
