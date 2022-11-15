@@ -288,98 +288,106 @@
         margin-right: 24px;
       }
     }
-
-    .emojiList {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 32px;
-      box-sizing: border-box;
-      opacity: 0;
-      transition: opacity 0.2s;
-
-      .tagName {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 622px;
-        margin-bottom: 24px;
-
-        input {
-          width: 462px;
-          height: 80px;
-          box-sizing: border-box;
-          padding-left: 40px;
-          background: var(--emoji-picker-input-background);
-          border: 2px solid var(--emoji-picker-input-border);
-          outline: none;
-          border-radius: 24px;
-          font-size: 32px;
-          color: var(--primary-font-color);
-          transition: background 0.2s, border 0.2s;
-
-          &::placeholder {
-            font-size: 32px;
-            color: var(--input-placeholder-color);
-            transition: color 0.2s;
-          }
-
-          &:focus {
-            border-color: var(--input-foucs-color);
-            background: var(--input-foucs-background);
-
-            &::placeholder {
-              color: var(--input-foucs-color);
-            }
-          }
-        }
-
-        button {
-          width: 140px;
-          height: 80px;
-          background: var(--primary-color);
-          border-radius: 40px;
-          outline: none;
-          border: none;
-          color: #ffffff;
-          font-size: 32px;
-        }
-      }
-
-      .emojiBox {
-        display: flex;
-        flex-wrap: wrap;
-        height: 360px;
-        overflow: auto;
-
-        .emoji,
-        .selectedEmoji {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 80px;
-          height: 80px;
-          margin: 0 27px 28px 0;
-          background: #f2f2f2;
-          border-radius: 50%;
-          transition: background 0.1s, border 0.1s;
-
-          &:nth-child(6n) {
-            margin-right: 0;
-          }
-        }
-
-        .selectedEmoji {
-          border: 1px solid var(--primary-color);
-          background: var(--emoji-select-background);
-          box-sizing: border-box;
-        }
-      }
-    }
   }
 
   .openTagPicker {
     height: 535px;
+  }
+
+  .emojiList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px;
+    box-sizing: border-box;
+    transition: opacity 0.2s;
+
+    .tagName {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 622px;
+      margin-bottom: 24px;
+
+      input {
+        max-width: 462px;
+        min-width: 370px;
+        width: 462px;
+        height: 80px;
+        box-sizing: border-box;
+        padding-left: 32px;
+        background: var(--emoji-picker-input-background);
+        border: 2px solid var(--emoji-picker-input-border);
+        outline: none;
+        border-radius: 24px;
+        font-size: 32px;
+        color: var(--primary-font-color);
+        transition: background 0.2s, border 0.2s;
+
+        &::placeholder {
+          font-size: 32px;
+          color: var(--input-placeholder-color);
+          transition: color 0.2s;
+        }
+
+        &:focus {
+          border-color: var(--input-foucs-color);
+          background: var(--input-foucs-background);
+
+          &::placeholder {
+            color: var(--input-foucs-color);
+          }
+        }
+      }
+
+      button {
+        min-width: 100px;
+        width: 140px;
+        height: 80px;
+        margin-left: 15px;
+        background: var(--primary-color);
+        border-radius: 40px;
+        outline: none;
+        border: none;
+        color: #ffffff;
+        font-size: 32px;
+      }
+
+      .deleteButton {
+        background: crimson;
+        color: #ffffff;
+      }
+    }
+
+    .emojiBox {
+      display: flex;
+      flex-wrap: wrap;
+      height: 360px;
+      overflow: auto;
+
+      .emoji,
+      .selectedEmoji {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        margin: 0 27px 28px 0;
+        background: #f2f2f2;
+        border-radius: 50%;
+        transition: background 0.1s, border 0.1s;
+
+        &:nth-child(6n) {
+          margin-right: 0;
+        }
+      }
+
+      .selectedEmoji {
+        border: 1px solid var(--primary-color);
+        background: var(--emoji-select-background);
+        box-sizing: border-box;
+      }
+    }
   }
 
   .submit {
@@ -395,6 +403,37 @@
       border: none;
       color: #ffffff;
       user-select: none;
+    }
+  }
+
+  .mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    transition: background 0.3s;
+
+    .editPicker {
+      width: 686px;
+      background: var(--button-not-select-background);
+      border-radius: 24px;
+      opacity: 0;
+      transition: opacity 0.3s;
+
+      p {
+        width: 686px;
+        margin: 32px 0 0 0;
+        padding-left: 32px;
+        box-sizing: border-box;
+        color: var(--button-not-select-color);
+        text-align: left;
+        font-size: 35px;
+      }
     }
   }
 }

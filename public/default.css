@@ -1,4 +1,5 @@
 body {
+  --mask-background: rgba(31, 36, 46, 0.3);
   --page-background: rgba(0, 0, 0, 0.03);
 
   --modal-background: #ffffff;
@@ -25,6 +26,7 @@ body {
 }
 
 body.dark {
+  --mask-background: rgba(255, 255, 255, 0.3);
   --page-background: rgba(0, 0, 0, 0.9);
 
   --modal-background: #ffffff;
@@ -51,6 +53,7 @@ body.dark {
 }
 
 body.green {
+  --mask-background: rgba(31, 36, 46, 0.3);
   --page-background: #f2f2f2;
 
   --modal-background: #ffffff;
@@ -77,6 +80,7 @@ body.green {
 }
 
 body.greenDark {
+  --mask-background: rgba(255, 255, 255, 0.3);
   --page-background: rgba(0, 0, 0, 0.9);
 
   --modal-background: #ffffff;

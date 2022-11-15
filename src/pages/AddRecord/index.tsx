@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Emoji from '@/components/Emoji'
 import TopInfo from '@/components/TopInfo'
 import emojiData from '@emoji-mart/data'
@@ -27,6 +27,8 @@ const AddRecord = () => {
 
   const { theme, inDark } = useTheme()
 
+  const [emojis, setEmojis] = useState<string[]>([])
+
   const [amountType, setAmountType] = useState<AmountType>(1)
   const [amountCountFen, setAmountCountFen] = useState<number>(0)
   const [descContent, setDescCount] = useState<string>('')
@@ -34,6 +36,7 @@ const AddRecord = () => {
   const [hideAddText, setHideAddText] = useState<boolean>(false)
   const [showTagPicker, setShowTagPicker] = useState<boolean>(false)
   const [selectEmoji, setSelectEmoji] = useState<string>()
+  const [editTagName, setEditTagName] = useState<string>('')
   const [showEdit, setShowEdit] = useState<boolean>(false)
 
   const computeAddIcon = () => {
@@ -45,6 +48,21 @@ const AddRecord = () => {
         return inDark ? addIconWhite : addIconPurple
     }
   }
+
+  const computeEmojiData = () => {
+    const selectedList = mockTagList.map((item) => item.emoji)
+    const result = Array.from(
+      new Set(
+        emojiData.categories
+          .map((item) => item.emojis.map((ele) => ele))
+          .flat()
+          .filter((item) => !selectedList.includes(item)),
+      ),
+    )
+    setEmojis([...selectedList, ...result])
+  }
+
+  useEffect(computeEmojiData, [])
 
   const overBiggestAmount = useMemo(() => amountCountFen >= 2147483647300, [amountCountFen])
   const overMaxCount = useMemo(() => descContent.length >= 100, [descContent])
@@ -60,6 +78,58 @@ const AddRecord = () => {
       setAmountCountFen(parseFloat(value) * 100)
     }
   }
+
+  const renderEmojiPicker = (editStatus = false) => (
+    <div className={s.emojiList} style={showTagPicker ? { opacity: 1 } : undefined}>
+      <div className={s.tagName}>
+        <input
+          type="text"
+          placeholder="请输入类目名（5字）"
+          value={editTagName}
+          onChange={(e) => setEditTagName(e.target.value)}
+        />
+        <button
+          onTouchStart={() => {
+            // TODO 相似，处理
+            if (showEdit) {
+              setEditTagName('')
+              setSelectEmoji('')
+              setShowEdit(false)
+            } else {
+              setHideAddText(false)
+              setTimeout(() => setShowTagPicker(false), 200)
+            }
+          }}
+        >
+          确定
+        </button>
+        {editStatus ? (
+          <button
+            className={s.deleteButton}
+            onTouchStart={() => {
+              if (showEdit) {
+                setEditTagName('')
+                setSelectEmoji('')
+                setShowEdit(false)
+              } else {
+                setHideAddText(false)
+                setTimeout(() => setShowTagPicker(false), 200)
+              }
+            }}
+          >
+            删除
+          </button>
+        ) : null}
+      </div>
+      <div className={s.emojiBox}>
+        {emojis.map((emoji) => (
+          <div className={selectEmoji === emoji ? s.selectedEmoji : s.emoji} onTouchStart={() => setSelectEmoji(emoji)}>
+            <Emoji shortcodes={emoji} size="1.5em" />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 
   return (
     <div className={s.pageContainer}>
@@ -113,6 +183,8 @@ const AddRecord = () => {
                 timer.current = setTimeout(() => {
                   setShowEdit(true)
                   setSelectTagName(item.name)
+                  setEditTagName(item.name)
+                  setSelectEmoji(item.emoji)
                 }, 500)
               }}
               onTouchEnd={() => {
@@ -141,37 +213,20 @@ const AddRecord = () => {
               添加类目
             </div>
           ) : null}
-          {hideAddText ? (
-            <div className={s.emojiList} style={showTagPicker ? { opacity: 1 } : undefined}>
-              <div className={s.tagName}>
-                <input type="text" placeholder="请输入类目名（5字）" />
-                <button
-                  onTouchStart={() => {
-                    setHideAddText(false)
-                    setTimeout(() => setShowTagPicker(false), 200)
-                  }}
-                >
-                  确定
-                </button>
-              </div>
-              <div className={s.emojiBox}>
-                {Array.from(new Set(emojiData.categories.map((item) => item.emojis.map((ele) => ele)).flat())).map(
-                  (emoji) => (
-                    <div
-                      className={selectEmoji === emoji ? s.selectedEmoji : s.emoji}
-                      onTouchStart={() => setSelectEmoji(emoji)}
-                    >
-                      <Emoji shortcodes={emoji} size="1.5em" />
-                    </div>
-                  ),
-                )}
-              </div>
-            </div>
-          ) : null}
+          {hideAddText ? renderEmojiPicker() : null}
         </section>
       </div>
       <section className={s.submit}>
         <button>确定记账</button>
+      </section>
+      <section
+        className={s.mask}
+        style={showEdit ? { background: 'var(--mask-background)' } : { pointerEvents: 'none' }}
+      >
+        <div className={s.editPicker} style={showEdit ? { opacity: 1 } : undefined}>
+          <p>编辑/删除</p>
+          {renderEmojiPicker(true)}
+        </div>
       </section>
     </div>
   )

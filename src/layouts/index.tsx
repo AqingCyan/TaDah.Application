@@ -27,7 +27,7 @@ export default function Layout() {
       <Outlet />
       <section
         className={s.mask}
-        style={showOpenInWechat ? { background: 'rgba(31, 36, 46, 0.3)' } : { pointerEvents: 'none' }}
+        style={showOpenInWechat ? { background: 'var(--mask-background)' } : { pointerEvents: 'none' }}
       >
         <div className={s.modal} style={showOpenInWechat ? { opacity: 1 } : undefined}>
           <p style={showOpenInWechat ? { opacity: 1 } : undefined}>检测到您在非微信环境打开</p>
