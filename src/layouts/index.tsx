@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { init } from 'emoji-mart'
 import emojiData from '@emoji-mart/data'
 import { Outlet } from 'umi'
+import Toast from '@/components/Toast'
 import { disableIOSTouchZoom, isInWeChat } from '@/utils/helpers'
 import qrcode_img from '../assets/qrcode.jpg'
 import s from './index.less'
-import Toast from '@/components/Toast'
 
 export default function Layout() {
   const [showOpenInWechat, setShowOpenInWechat] = useState<boolean>(false)

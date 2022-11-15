@@ -1,0 +1,21 @@
+:root {
+    --page-background: #f2f2f2;
+
+    --modal-background: #ffffff;
+    --primary-font-color: #333333;
+
+    --primary-color: #385b4e;
+
+    --input-background: #ffffff;
+    --input-placeholder-color: #bbbbbb;
+    --input-foucs-color: rgba(101, 182, 88, 1);
+    --input-foucs-background: rgba(101, 182, 88, 0.1);
+
+    --button-not-select-color: #000000;
+    --button-not-select-background: #ffffff;
+
+    --not-active-border: #e2e2e2;
+    --shadow-val: none;
+
+    --emoji-select-background: #98f578;
+}
