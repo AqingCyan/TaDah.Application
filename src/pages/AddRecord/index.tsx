@@ -87,13 +87,12 @@ const AddRecord = () => {
   }
 
   const handleEditAmountTag = (item: { name: string; emoji: string }) => {
-    setShowEdit(true)
     setSelectTagName(item.name)
     setEditTagName(item.name)
     setSelectEmoji(item.emoji)
   }
 
-  const renderEmojiPicker = (editStatus = false) => (
+  const renderEmojiPicker = () => (
     <div className={s.emojiList} style={showTagPicker ? { opacity: 1 } : undefined}>
       <div className={s.tagName}>
         <input
@@ -114,21 +113,6 @@ const AddRecord = () => {
         >
           确定
         </button>
-        {editStatus ? (
-          <button
-            className={s.deleteButton}
-            onTouchStart={() => {
-              if (showEdit) {
-                handleCloseEditModalAndInitData()
-              } else {
-                setHideAddText(false)
-                setTimeout(() => setShowTagPicker(false), 200)
-              }
-            }}
-          >
-            删除
-          </button>
-        ) : null}
       </div>
       <div className={s.emojiBox}>
         {emojis.map((emoji) => (
@@ -141,7 +125,7 @@ const AddRecord = () => {
   )
 
   return (
-    <div className={s.pageContainer}>
+    <div className={s.pageContainer} onTouchStart={shakeTag ? () => setShakeTag(undefined) : undefined}>
       <div>
         <TopInfo date={Date.now()} />
         <section className={overBiggestAmount ? s.inputMoneyError : s.inputMoney}>
@@ -189,10 +173,13 @@ const AddRecord = () => {
               className={`${selectTagName === item.name ? s.selectedTag : s.defaultTag} ${
                 shakeTag === item.name ? s.shakeTag : ''
               }`}
-              onTouchStart={() => {
+              onTouchStart={(e) => {
+                e.stopPropagation()
                 // 一直按着不放触发编辑状态
-                // timer.current = setTimeout(() => handleEditAmountTag(item), 500)
-                timer.current = setTimeout(() => setShakeTag(item.name), 500)
+                timer.current = setTimeout(() => {
+                  setShakeTag(item.name)
+                  handleEditAmountTag(item)
+                }, 500)
               }}
               onTouchEnd={() => {
                 window.clearTimeout(timer.current)
@@ -206,7 +193,7 @@ const AddRecord = () => {
                 <div>
                   <span>{item.name}</span>
                   <div>
-                    <button>改</button>
+                    <button onClick={() => setShowEdit(true)}>改</button>
                     <button>删</button>
                   </div>
                 </div>
@@ -245,7 +232,7 @@ const AddRecord = () => {
           onClick={(e) => e.stopPropagation()}
         >
           <p>编辑/删除</p>
-          {renderEmojiPicker(true)}
+          {renderEmojiPicker()}
         </div>
       </section>
     </div>
