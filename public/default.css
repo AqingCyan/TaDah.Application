@@ -23,6 +23,8 @@ body {
   --emoji-picker-input-border: #e2e2e2;
 
   --theme-icon-color: #385b4e;
+
+  --edit-button-background: #ffc53d;
 }
 
 body.dark {
@@ -50,6 +52,8 @@ body.dark {
   --emoji-picker-input-border: #3d3d3d;
 
   --theme-icon-color: #2a7555;
+
+  --edit-button-background: #d48806;
 }
 
 body.green {
@@ -77,6 +81,8 @@ body.green {
   --emoji-picker-input-border: #e2e2e2;
 
   --theme-icon-color: #7647fd;
+
+  --edit-button-background: #ffc53d;
 }
 
 body.greenDark {
@@ -104,4 +110,6 @@ body.greenDark {
   --emoji-picker-input-border: #3d3d3d;
 
   --theme-icon-color: #7647fd;
+
+  --edit-button-background: #d48806;
 }

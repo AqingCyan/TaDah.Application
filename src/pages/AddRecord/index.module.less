@@ -223,7 +223,7 @@
       box-shadow: var(--shadow-val);
       transition: background 0.2s;
 
-      & div:first-child {
+      .emojiBox {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -238,12 +238,59 @@
         }
       }
 
-      & span:last-child {
+      .tagHandlerBox {
+        position: relative;
+        width: 180px;
+        height: 80px;
         margin-left: 16px;
-        font-size: 32px;
-        color: var(--button-not-select-color);
-        user-select: none;
-        transition: color 0.2s;
+        overflow: hidden;
+
+        div {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 160px;
+          width: 180px;
+          transition: top 0.4s;
+
+          & span:first-child {
+            position: absolute;
+            top: 0;
+            display: block;
+            height: 80px;
+            font-size: 32px;
+            line-height: 80px;
+            color: var(--button-not-select-color);
+            user-select: none;
+            transition: color 0.2s;
+          }
+
+          & div:last-child {
+            position: absolute;
+            top: 80px;
+            display: flex;
+            justify-content: space-between;
+            height: 80px;
+
+            button {
+              width: 80px;
+              height: 80px;
+              border-radius: 40px;
+              border: none;
+              outline: none;
+              color: #ffffff;
+              font-size: 32px;
+            }
+
+            & button:first-child {
+              background: var(--edit-button-background);
+            }
+
+            & button:last-child {
+              background: crimson;
+            }
+          }
+        }
       }
     }
 
@@ -251,12 +298,48 @@
       background: var(--primary-color);
       border-color: var(--primary-color);
 
-      & div:first-child {
+      .emojiBox {
         background: var(--emoji-select-background);
       }
 
-      & span:last-child {
-        color: #ffffff;
+      .tagHandlerBox {
+        div {
+          & span:first-child {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+    .shakeTag {
+      animation: shake 800ms infinite;
+
+      .tagHandlerBox {
+        div {
+          top: -80px;
+        }
+      }
+    }
+
+    @keyframes shake {
+      10%,
+      90% {
+        transform: rotate(-2deg);
+      }
+      20%,
+      80% {
+        transform: rotate(2deg);
+      }
+      30%,
+      70% {
+        transform: rotate(3deg);
+      }
+      40%,
+      60% {
+        transform: rotate(-3deg);
+      }
+      50% {
+        transform: rotate(4deg);
       }
     }
   }

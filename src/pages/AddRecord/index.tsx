@@ -37,6 +37,7 @@ const AddRecord = () => {
   const [showTagPicker, setShowTagPicker] = useState<boolean>(false)
   const [selectEmoji, setSelectEmoji] = useState<string>()
   const [editTagName, setEditTagName] = useState<string>('')
+  const [shakeTag, setShakeTag] = useState<string | undefined>(undefined)
   const [showEdit, setShowEdit] = useState<boolean>(false)
 
   const computeAddIcon = () => {
@@ -79,6 +80,19 @@ const AddRecord = () => {
     }
   }
 
+  const handleCloseEditModalAndInitData = () => {
+    setEditTagName('')
+    setSelectEmoji('')
+    setShowEdit(false)
+  }
+
+  const handleEditAmountTag = (item: { name: string; emoji: string }) => {
+    setShowEdit(true)
+    setSelectTagName(item.name)
+    setEditTagName(item.name)
+    setSelectEmoji(item.emoji)
+  }
+
   const renderEmojiPicker = (editStatus = false) => (
     <div className={s.emojiList} style={showTagPicker ? { opacity: 1 } : undefined}>
       <div className={s.tagName}>
@@ -90,11 +104,8 @@ const AddRecord = () => {
         />
         <button
           onTouchStart={() => {
-            // TODO 相似，处理
             if (showEdit) {
-              setEditTagName('')
-              setSelectEmoji('')
-              setShowEdit(false)
+              handleCloseEditModalAndInitData()
             } else {
               setHideAddText(false)
               setTimeout(() => setShowTagPicker(false), 200)
@@ -108,9 +119,7 @@ const AddRecord = () => {
             className={s.deleteButton}
             onTouchStart={() => {
               if (showEdit) {
-                setEditTagName('')
-                setSelectEmoji('')
-                setShowEdit(false)
+                handleCloseEditModalAndInitData()
               } else {
                 setHideAddText(false)
                 setTimeout(() => setShowTagPicker(false), 200)
@@ -177,25 +186,31 @@ const AddRecord = () => {
           {mockTagList.map((item) => (
             <div
               key={item.name}
-              className={selectTagName === item.name ? s.selectedTag : s.defaultTag}
+              className={`${selectTagName === item.name ? s.selectedTag : s.defaultTag} ${
+                shakeTag === item.name ? s.shakeTag : ''
+              }`}
               onTouchStart={() => {
                 // 一直按着不放触发编辑状态
-                timer.current = setTimeout(() => {
-                  setShowEdit(true)
-                  setSelectTagName(item.name)
-                  setEditTagName(item.name)
-                  setSelectEmoji(item.emoji)
-                }, 500)
+                // timer.current = setTimeout(() => handleEditAmountTag(item), 500)
+                timer.current = setTimeout(() => setShakeTag(item.name), 500)
               }}
               onTouchEnd={() => {
                 window.clearTimeout(timer.current)
                 setSelectTagName(item.name)
               }}
             >
-              <div>
+              <div className={s.emojiBox}>
                 <Emoji size="1.5em" shortcodes={item.emoji} />
               </div>
-              <span>{item.name}</span>
+              <div className={s.tagHandlerBox}>
+                <div>
+                  <span>{item.name}</span>
+                  <div>
+                    <button>改</button>
+                    <button>删</button>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </section>
@@ -222,8 +237,13 @@ const AddRecord = () => {
       <section
         className={s.mask}
         style={showEdit ? { background: 'var(--mask-background)' } : { pointerEvents: 'none' }}
+        onClick={handleCloseEditModalAndInitData}
       >
-        <div className={s.editPicker} style={showEdit ? { opacity: 1 } : undefined}>
+        <div
+          className={s.editPicker}
+          style={showEdit ? { opacity: 1 } : undefined}
+          onClick={(e) => e.stopPropagation()}
+        >
           <p>编辑/删除</p>
           {renderEmojiPicker(true)}
         </div>
