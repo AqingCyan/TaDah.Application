@@ -10,14 +10,14 @@ export default {
       viewportWidth: 750,
     }),
   ],
-  // publicPath: './',
   routes: [
     {
       path: '/',
       component: '@/layouts/index',
       routes: [
-        { path: '/', redirect: '/addRecord' },
+        { path: '/', redirect: '/accountBook' },
         { path: '/addRecord', component: '@/pages/AddRecord', title: '记一笔账' },
+        { path: '/accountBook', component: '@/pages/AccountBook', title: '记一笔账' },
       ],
     },
   ],

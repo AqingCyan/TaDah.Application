@@ -1,0 +1,31 @@
+.cardBox {
+  position: relative;
+  width: 540px;
+  height: 369px;
+  background: linear-gradient(45deg, #ffffff, #4b5e54, #f8f8f8e5);
+  background-size: 400% 400%;
+  border-radius: 32px 32px 0 0;
+  animation: gradientBG 8s ease infinite;
+
+  @keyframes gradientBG {
+    0% {
+      background-position: 0 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0 50%;
+    }
+  }
+
+  .contentBox {
+    position: absolute;
+    bottom: 0;
+    left: 4px;
+    width: 532px;
+    height: 365px;
+    border-radius: 32px 32px 0 0;
+    background: radial-gradient(104.07% 138.05% at 80.06% -64.65%, #116340 0%, #075332 43.45%, #083e26 100%);
+  }
+}
