@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import request from 'umi-request'
 import Emoji from '@/components/Emoji'
 import TopInfo from '@/components/TopInfo'
 import emojiData from '@emoji-mart/data'
@@ -39,6 +40,13 @@ const AddRecord = () => {
   const [editTagName, setEditTagName] = useState<string>('')
   const [shakeTag, setShakeTag] = useState<string | undefined>(undefined)
   const [showEdit, setShowEdit] = useState<boolean>(false)
+
+  useEffect(() => {
+    request('https://aqingcyan.com/appid').then((appid: string) => {
+      const currentHref = 'https://aqingcyan.com/accessToken'
+      window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${currentHref}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+    })
+  }, [])
 
   const computeAddIcon = () => {
     switch (theme) {

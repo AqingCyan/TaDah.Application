@@ -16,6 +16,7 @@
     "react-responsive": "^9.0.0",
     "swiper": "^8.4.4",
     "umi": "^4.0.30",
+    "umi-request": "^1.4.0",
     "use-persisted-state": "^0.3.3"
   },
   "devDependencies": {

@@ -15,7 +15,7 @@ export default {
       path: '/',
       component: '@/layouts/index',
       routes: [
-        { path: '/', redirect: '/accountBook' },
+        { path: '/', redirect: '/AddRecord' },
         { path: '/addRecord', component: '@/pages/AddRecord', title: '记一笔账' },
         { path: '/accountBook', component: '@/pages/AccountBook', title: '记一笔账' },
       ],
