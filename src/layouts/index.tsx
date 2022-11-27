@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import request from 'umi-request'
 import { init } from 'emoji-mart'
 import emojiData from '@emoji-mart/data'
-import { Outlet } from 'umi'
+import { Outlet, useLocation } from 'umi'
 import Toast from '@/components/Toast'
 import { disableIOSTouchZoom, isInWeChat } from '@/utils/helpers'
 import qrcode_img from '../assets/qrcode.jpg'
 import s from './index.less'
 
 export default function Layout() {
+  const location = useLocation()
   const [showOpenInWechat, setShowOpenInWechat] = useState<boolean>(false)
 
   const checkBrowserAndModal = () => {
@@ -21,6 +23,18 @@ export default function Layout() {
   useEffect(disableIOSTouchZoom, [])
   useEffect(checkBrowserAndModal, [isInWeChat()])
   useEffect(loadEmoji, [])
+  useEffect(() => {
+    const uid = location.search.split('?uid=')[1]
+    if (uid) {
+      request.get('http://localhost:3000/account/checkRegistration', { params: { uid } }).then((res) => {
+        if (res.data) {
+          console.log('显示登录')
+        } else {
+          console.log('显示注册')
+        }
+      })
+    }
+  }, [])
 
   return (
     <>

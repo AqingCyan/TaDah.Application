@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-// import request from 'umi-request'
+import dayjs from 'dayjs'
 import Emoji from '@/components/Emoji'
 import TopInfo from '@/components/TopInfo'
-import emojiData from '@emoji-mart/data'
 import useTheme from '@/hooks/useTheme'
+import FormInput from '@/components/FormInput'
+import emojiData from '@emoji-mart/data'
 import addIconGreen from '@/assets/addIconGreen.svg'
 import addIconWhite from '@/assets/addIconWhite.svg'
 import addIconPurple from '@/assets/addIconPurple.svg'
@@ -128,17 +129,16 @@ const AddRecord = () => {
   return (
     <div className={s.pageContainer} onTouchStart={shakeTag ? () => setShakeTag(undefined) : undefined}>
       <div>
-        <TopInfo date={Date.now()} />
-        <section className={overBiggestAmount ? s.inputMoneyError : s.inputMoney}>
-          <span className={s.icon}>¥</span>
-          <input
-            type="number"
-            placeholder="请输入金额"
-            onChange={handleAmountCountChange}
-            value={amountCountFen <= 0 ? undefined : amountCountFen / 100}
-          />
-          <span className={s.error}>数额太大</span>
-        </section>
+        <TopInfo text={dayjs().format('YYYY年MM月')} />
+        <FormInput
+          icon={<>¥</>}
+          type="number"
+          errorText="数额太大"
+          placeholder="请输入金额"
+          errorStatus={overBiggestAmount}
+          onChange={handleAmountCountChange}
+          value={amountCountFen <= 0 ? undefined : amountCountFen / 100}
+        />
         <section className={s.amountType}>
           <div
             className={amountType === AmountType.paid ? s.notSelect : undefined}
