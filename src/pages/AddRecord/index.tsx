@@ -43,7 +43,7 @@ const AddRecord = () => {
 
   useEffect(() => {
     request('https://cyanthing.com/appid').then((appid: string) => {
-      const currentHref = 'https://cyanthing.com/accessToken'
+      const currentHref = encodeURIComponent('https://cyanthing.com/accessToken')
       window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${currentHref}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
     })
   }, [])
