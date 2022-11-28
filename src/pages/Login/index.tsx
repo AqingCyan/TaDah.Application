@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react'
+import { history } from 'umi'
 import TopInfo from '@/components/TopInfo'
 import FormInput from '@/components/FormInput'
 import userIconWhite from '@/assets/userWhite.svg'
@@ -59,7 +60,7 @@ const Login = () => {
         errorText="两次密码内容不同"
       />
       <section className={s.submit}>
-        <button>确定记账</button>
+        <button onClick={() => history.push('/appDashboard')}>登录 TaDah</button>
       </section>
     </div>
   )
