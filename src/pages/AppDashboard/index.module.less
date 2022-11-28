@@ -4,4 +4,47 @@
   box-sizing: border-box;
   padding: 32px 32px;
   background: var(--page-background);
+
+  .applicationList {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 96px auto;
+
+    .applicationBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 180px;
+      margin-bottom: 64px;
+      margin-right: 73px;
+
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+
+      .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 180px;
+        height: 180px;
+        border: 8px solid var(--primary-color);
+        background: var(--input-foucs-background);
+        border-radius: 32px;
+        box-sizing: border-box;
+        transition: border 0.2s, background 0.2s;
+
+        img {
+          width: 70px;
+          height: 70px;
+        }
+      }
+
+      .appName {
+        margin-top: 32px;
+        color: var(--primary-font-color);
+      }
+    }
+  }
 }
