@@ -12,3 +12,12 @@ declare global {
     }
   }
 }
+
+declare namespace API {
+  type FetchResponse<T> = Promise<{
+    message: string
+    error: string
+    statusCode: number
+    data: T
+  }>
+}

@@ -2,6 +2,8 @@
 import postCssPxToViewport from 'postcss-px-to-viewport'
 import autoprefixer from 'autoprefixer'
 
+const { REACT_APP_ENV = 'prod' } = process.env
+
 export default {
   npmClient: 'pnpm',
   extraPostCSSPlugins: [
@@ -10,6 +12,7 @@ export default {
       viewportWidth: 750,
     }),
   ],
+  define: { REACT_APP_ENV },
   routes: [
     {
       path: '/',

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet, useLocation } from 'umi'
-import request from 'umi-request'
-import { parse } from 'query-string'
+import { Outlet } from 'umi'
+import { useAtom } from 'jotai'
 import { init } from 'emoji-mart'
 import emojiData from '@emoji-mart/data'
 import Toast from '@/components/Toast'
 import { disableIOSTouchZoom, isInWeChat } from '@/utils/helpers'
 import qrcode_img from '../assets/qrcode.jpg'
+import { currentUserAtom } from '@/models/useCurrentUser'
+import { pingCurrentUser } from '@/services/user'
 import s from './index.less'
 
+// TODO layout 刷新两次查清楚
 export default function Layout() {
-  const location = useLocation()
+  const [, setCurrentUser] = useAtom(currentUserAtom)
+
   const [showOpenInWechat, setShowOpenInWechat] = useState<boolean>(false)
 
   const checkBrowserAndModal = () => {
@@ -18,24 +21,21 @@ export default function Layout() {
   }
 
   const loadEmoji = () => {
-    init({ data: emojiData }).catch(() => Toast.show('emoji加载失败，可能消费类目展示错误', { position: 'center' }))
+    init({ data: emojiData }).catch(() =>
+      Toast.show('emoji加载失败，可能造成记账应用消费类目展示错误', { position: 'center' }),
+    )
+  }
+
+  const initData = () => {
+    loadEmoji()
+    pingCurrentUser().then((res) => {
+      if (res.data) setCurrentUser(res.data)
+    })
   }
 
   useEffect(disableIOSTouchZoom, [])
   useEffect(checkBrowserAndModal, [isInWeChat()])
-  useEffect(loadEmoji, [])
-  useEffect(() => {
-    const query = parse(location.search)
-    if (query.uid) {
-      request.get('http://localhost:3000/account/checkRegistration', { params: { uid: query.uid } }).then((res) => {
-        if (res.data) {
-          console.log('显示登录')
-        } else {
-          console.log('显示注册')
-        }
-      })
-    }
-  }, [])
+  useEffect(initData, [])
 
   return (
     <>

@@ -1,7 +1,8 @@
 import React, { HTMLInputTypeAttribute } from 'react'
 import s from './index.module.less'
 
-interface FormInputProps {
+interface FormInputProps
+  extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   errorStatus?: boolean
   errorText?: string
   onChange?: React.ChangeEventHandler<HTMLInputElement>
@@ -12,12 +13,12 @@ interface FormInputProps {
 }
 
 const FormInput: React.FC<FormInputProps> = (props) => {
-  const { errorStatus, onChange, errorText, value, icon, placeholder, type } = props
+  const { errorStatus, onChange, errorText, value, icon, placeholder, type, ...others } = props
 
   return (
     <section className={errorStatus ? s.inputError : s.input}>
       <span className={s.icon}>{icon}</span>
-      <input type={type} placeholder={placeholder} onChange={onChange} value={value} />
+      <input {...others} type={type} placeholder={placeholder} onChange={onChange} value={value} />
       {errorText && <span className={s.error}>{errorText}</span>}
     </section>
   )

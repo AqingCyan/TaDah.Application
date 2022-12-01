@@ -16,10 +16,22 @@
     justify-content: center;
     width: 150px;
     height: 150px;
-    margin: 150px auto 100px;
+    margin: 120px auto 100px;
     border-radius: 50%;
     border: 3px solid var(--primary-font-color);
     box-sizing: border-box;
+    overflow: hidden;
+
+    input {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      opacity: 0;
+    }
+
+    img {
+      height: 100%;
+    }
 
     span {
       font-size: 70px;
@@ -41,5 +53,11 @@
       color: #ffffff;
       user-select: none;
     }
+  }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    margin-top: 35vh;
   }
 }

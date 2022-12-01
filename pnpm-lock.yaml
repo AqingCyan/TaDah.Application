@@ -2,12 +2,15 @@ lockfileVersion: 5.4
 
 specifiers:
   '@emoji-mart/data': ^1.0.8
+  '@types/canvas-confetti': ^1.6.0
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
   '@types/use-persisted-state': ^0.3.1
   autoprefixer: ^10.4.13
+  canvas-confetti: ^1.6.0
   dayjs: ^1.11.6
   emoji-mart: ^5.3.2
+  jotai: ^1.11.0
   postcss-px-to-viewport: ^1.1.1
   prettier: ^2
   prettier-plugin-organize-imports: ^2
@@ -22,8 +25,10 @@ specifiers:
 
 dependencies:
   '@emoji-mart/data': 1.0.8
+  canvas-confetti: 1.6.0
   dayjs: 1.11.6
   emoji-mart: 5.3.2
+  jotai: 1.11.0
   query-string: 7.1.1
   react-responsive: 9.0.0
   swiper: 8.4.4
@@ -32,6 +37,7 @@ dependencies:
   use-persisted-state: 0.3.3
 
 devDependencies:
+  '@types/canvas-confetti': 1.6.0
   '@types/react': 18.0.25
   '@types/react-dom': 18.0.8
   '@types/use-persisted-state': 0.3.1
@@ -1260,6 +1266,10 @@ packages:
       '@babel/types': 7.20.2
     dev: false
 
+  /@types/canvas-confetti/1.6.0:
+    resolution: {integrity: sha512-Yq6rIccwcco0TLD5SMUrIM7Fk7Fe/C0jmNRxJJCLtAF6gebDkPuUjK5EHedxecm69Pi/aA+It39Ux4OHmFhjRw==}
+    dev: true
+
   /@types/glob/7.2.0:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
@@ -2240,6 +2250,10 @@ packages:
 
   /caniuse-lite/1.0.30001431:
     resolution: {integrity: sha512-zBUoFU0ZcxpvSt9IU66dXVT/3ctO1cy4y9cscs1szkPlcWb6pasYM144GqrUygUbT+k7cmUCW61cvskjcv0enQ==}
+
+  /canvas-confetti/1.6.0:
+    resolution: {integrity: sha512-ej+w/m8Jzpv9Z7W7uJZer14Ke8P2ogsjg4ZMGIuq4iqUOqY2Jq8BNW42iGmNfRwREaaEfFIczLuZZiEVSYNHAA==}
+    dev: false
 
   /chalk/2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
@@ -4395,6 +4409,44 @@ packages:
       '@types/node': 18.11.9
       merge-stream: 2.0.0
       supports-color: 8.1.1
+    dev: false
+
+  /jotai/1.11.0:
+    resolution: {integrity: sha512-8OzJmRxcTZoAOJSz6uTnmofmjAOgNOdAOy26rvyw3OBxt6XIoklNnfUTCm8wgp84SSLJbPZA01VS5O/SUz+QYg==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@babel/core': '*'
+      '@babel/template': '*'
+      jotai-immer: '*'
+      jotai-optics: '*'
+      jotai-redux: '*'
+      jotai-tanstack-query: '*'
+      jotai-urql: '*'
+      jotai-valtio: '*'
+      jotai-xstate: '*'
+      jotai-zustand: '*'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@babel/template':
+        optional: true
+      jotai-immer:
+        optional: true
+      jotai-optics:
+        optional: true
+      jotai-redux:
+        optional: true
+      jotai-tanstack-query:
+        optional: true
+      jotai-urql:
+        optional: true
+      jotai-valtio:
+        optional: true
+      jotai-xstate:
+        optional: true
+      jotai-zustand:
+        optional: true
     dev: false
 
   /js-tokens/4.0.0:
