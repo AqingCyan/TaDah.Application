@@ -1,4 +1,5 @@
 import React from 'react'
+import { useAtom } from 'jotai'
 import TopInfo from '@/components/TopInfo'
 import useTheme from '@/hooks/useTheme'
 import accountBookBlack from './icons/accountBookBlack.svg'
@@ -13,6 +14,7 @@ import memoWhite from './icons/memoWhite.svg'
 import memoBlack from './icons/memoBlack.svg'
 import weatherBlack from './icons/weatherBlack.svg'
 import weatherWhite from './icons/weatherWhite.svg'
+import { currentUserAtom } from '@/models/useCurrentUser'
 import s from './index.module.less'
 
 export const accountBookIcon = (dark: boolean) => {
@@ -51,9 +53,11 @@ const applications = [
 const AppDashboard = () => {
   const { inDark } = useTheme()
 
+  const [currentUser] = useAtom(currentUserAtom)
+
   return (
     <div className={s.pageContainer}>
-      <TopInfo text="👋 你好" />
+      <TopInfo text={`👋 你好 ${currentUser?.nickname}`} />
       <section className={s.applicationList}>
         {applications.map((item) => (
           <div key={item.name} className={s.applicationBox}>

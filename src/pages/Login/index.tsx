@@ -13,9 +13,9 @@ import emailBlack from '@/assets/emailBlack.svg'
 import emailWhite from '@/assets/emailWhite.svg'
 import useTheme from '@/hooks/useTheme'
 import { checkRegistration, loginAccount, pingCurrentUser, registerAccount, uploadHeadImage } from '@/services/user'
-import s from './index.module.less'
 import { useAtom } from 'jotai'
 import { currentUserAtom } from '@/models/useCurrentUser'
+import s from './index.module.less'
 
 const Login = () => {
   const { inDark } = useTheme()

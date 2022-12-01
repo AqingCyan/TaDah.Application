@@ -7,7 +7,7 @@ const token = window.localStorage.getItem('bearer_token')
 
 const baseURL = {
   local: 'http://localhost:3000',
-  prod: 'https://cyanthing.com',
+  prod: 'https://www.cyanthing.com',
 }[env]
 
 const request = extend({
