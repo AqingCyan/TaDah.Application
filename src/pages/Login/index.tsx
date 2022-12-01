@@ -118,7 +118,8 @@ const Login = () => {
       const data = { nickname, headimgurl: headimage, email, password }
       registerAccount(query.uid as string, data).then((res) => {
         if (res.data) {
-          history.push(`/appDashboard${window.location.search}`)
+          setShowType('login')
+          setPassword('')
         } else {
           // TODO toast 提示
         }
