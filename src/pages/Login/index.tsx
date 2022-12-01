@@ -142,11 +142,6 @@ const Login = () => {
           window.localStorage.setItem('bearer_token', res.data)
           history.push(`/appDashboard${window.location.search}`)
           tadah()
-          setTimeout(() => {
-            pingCurrentUser().then((res) => {
-              if (res.data) setCurrentUser(res.data)
-            })
-          }, 1000)
         }
       })
     } else {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAtom } from 'jotai'
 import TopInfo from '@/components/TopInfo'
 import useTheme from '@/hooks/useTheme'
@@ -16,6 +16,7 @@ import weatherBlack from './icons/weatherBlack.svg'
 import weatherWhite from './icons/weatherWhite.svg'
 import { currentUserAtom } from '@/models/useCurrentUser'
 import s from './index.module.less'
+import { pingCurrentUser } from '@/services/user'
 
 export const accountBookIcon = (dark: boolean) => {
   return !dark ? accountBookBlack : accountBookWhite
@@ -53,7 +54,20 @@ const applications = [
 const AppDashboard = () => {
   const { inDark } = useTheme()
 
-  const [currentUser] = useAtom(currentUserAtom)
+  const [currentUser, setCurrentUser] = useAtom(currentUserAtom)
+
+  /**
+   * 全局用户信息加载
+   */
+  const handlePing = () => {
+    if (!currentUser) {
+      pingCurrentUser().then((res) => {
+        if (res.data) setCurrentUser(res.data)
+      })
+    }
+  }
+
+  useEffect(handlePing, [])
 
   return (
     <div className={s.pageContainer}>
