@@ -3,8 +3,6 @@ import { history } from 'umi'
 
 const env = process.env.NODE_ENV === 'development' ? 'local' : 'prod'
 
-const token = window.localStorage.getItem('bearer_token')
-
 const baseURL = {
   local: 'http://localhost:3000',
   prod: 'https://www.cyanthing.com',
@@ -12,7 +10,7 @@ const baseURL = {
 
 const request = extend({
   prefix: baseURL,
-  headers: { Authorization: `Bearer ${token}` },
+  headers: { Authorization: `Bearer ${window.localStorage.getItem('bearer_token')}` },
   errorHandler: (err: { data: { statusCode: number; message: string } }) => {
     const { data } = err
     const { location } = window
