@@ -4,7 +4,10 @@ import { API } from '../../../typings'
 /**
  * 获取登录用户信息
  */
-export const pingCurrentUser = (): API.FetchResponse<USER.UserInfo> => request.get('/auth/ping')
+export const pingCurrentUser = (): API.FetchResponse<USER.UserInfo> =>
+  request.get('/auth/ping', {
+    headers: { Authorization: `Bearer ${window.localStorage.getItem('bearer_token')}` },
+  })
 
 /**
  * 检查用户是否注册过
