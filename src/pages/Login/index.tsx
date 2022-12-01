@@ -12,17 +12,13 @@ import passwordBlack from '@/assets/passworBlack.svg'
 import emailBlack from '@/assets/emailBlack.svg'
 import emailWhite from '@/assets/emailWhite.svg'
 import useTheme from '@/hooks/useTheme'
-import { checkRegistration, loginAccount, pingCurrentUser, registerAccount, uploadHeadImage } from '@/services/user'
-import { useAtom } from 'jotai'
-import { currentUserAtom } from '@/models/useCurrentUser'
+import { checkRegistration, loginAccount, registerAccount, uploadHeadImage } from '@/services/user'
 import s from './index.module.less'
 
 const Login = () => {
   const { inDark } = useTheme()
   const location = useLocation()
   const query = parse(location.search)
-
-  const [, setCurrentUser] = useAtom(currentUserAtom)
 
   const [showType, setShowType] = useState<'login' | 'register' | undefined>(undefined)
   const [nickname, setNickname] = useState<string>('')
@@ -36,7 +32,7 @@ const Login = () => {
   const handleFirstPage = () => {
     if (query.uid) {
       checkRegistration(query.uid as string).then((res) => {
-        if (res.data && !res.error) {
+        if (res.data !== undefined && !res.error) {
           setShowType(res.data ? 'login' : 'register')
           setHeadimage(res.data ? 'https://headimage-1259237065.cos.ap-hongkong.myqcloud.com/118211681.png' : '')
         } else {
