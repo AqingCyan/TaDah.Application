@@ -53,3 +53,10 @@ export const updateUserInfo = (data: {
   headimgurl?: string
   email: string
 }): API.FetchResponse<boolean> => request().put('/account/updateUserInfo', { data })
+
+/**
+ * 更新用户密码
+ * @param data
+ */
+export const updateUserPassword = (data: { password: string; newPassword: string }): API.FetchResponse<boolean> =>
+  request().put('/account/updatePassword', { data })

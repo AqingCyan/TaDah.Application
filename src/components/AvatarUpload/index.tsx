@@ -5,8 +5,8 @@ import s from './index.module.less'
 
 interface AvatarUploadProps {
   disabled?: boolean
-  avatarSrc: string
-  setAvatarSrc: (val: string) => void
+  avatarSrc?: string
+  setAvatarSrc?: (val: string) => void
 }
 
 // TODO 看要不要做一个头像裁剪的功能
@@ -24,7 +24,7 @@ const AvatarUpload: React.FC<AvatarUploadProps> = (props) => {
       formData.append('headimage', fileData)
       uploadHeadImage(formData).then((res) => {
         if (res.data) {
-          setAvatarSrc(res.data)
+          if (setAvatarSrc) setAvatarSrc(res.data)
         } else {
           Toast.show('头像上传失败')
         }
@@ -34,8 +34,15 @@ const AvatarUpload: React.FC<AvatarUploadProps> = (props) => {
 
   return (
     <div className={s.headerImageUpload}>
-      {!disabled && <input type="file" accept="image/png,image/jpeg" onChange={uploadFile} />}
-      {avatarSrc ? <img src={avatarSrc} alt="headimage" /> : <span>+</span>}
+      {!disabled && setAvatarSrc && <input type="file" accept="image/png,image/jpeg" onChange={uploadFile} />}
+      {avatarSrc ? (
+        <img
+          src={avatarSrc || 'https://headimage-1259237065.cos.ap-hongkong.myqcloud.com/118211681.png'}
+          alt="headimage"
+        />
+      ) : (
+        <span>+</span>
+      )}
     </div>
   )
 }

@@ -20,7 +20,8 @@ export default {
       routes: [
         { path: '/', redirect: '/appDashboard' },
         { path: '/login', component: '@/pages/Login', title: '登录' },
-        { path: '/updateUserInfo', component: '@/pages/UpdateUserInfo', title: '登录' },
+        { path: '/updateUserInfo', component: '@/pages/UpdateUserInfo', title: '修改信息' },
+        { path: '/changePassword', component: '@/pages/ChangePassword', title: '修改密码' },
         { path: '/appDashboard', component: '@/pages/AppDashboard', title: 'TaDah应用' },
         { path: '/addRecord', component: '@/pages/AddRecord', title: '记一笔账' },
         { path: '/accountBook', component: '@/pages/AccountBook', title: '记一笔账' },

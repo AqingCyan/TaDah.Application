@@ -22,17 +22,15 @@ const UpdateUserInfo = () => {
 
   const [nickname, setNickname] = useState<string>('')
   const [email, setEmail] = useState<string>('')
-  const [headimage, setHeadimage] = useState<string>(
-    'https://headimage-1259237065.cos.ap-hongkong.myqcloud.com/118211681.png',
-  )
+  const [headimage, setHeadimage] = useState<string>('')
   const [nicknameErrorText, setNicknameErrorText] = useState<string>('')
   const [emailErrorText, setEmailErrorText] = useState<string>('')
 
   useEffect(() => {
     if (currentUserInfo) {
-      setHeadimage(currentUserInfo.headimgurl)
       setNickname(currentUserInfo.nickname)
       setEmail(currentUserInfo.email)
+      setHeadimage(currentUserInfo.headimgurl)
     }
   }, [currentUserInfo])
 
@@ -54,6 +52,7 @@ const UpdateUserInfo = () => {
       updateUserInfo({ email, nickname, headimgurl: headimage }).then((res) => {
         if (res.data) {
           tadah()
+          Toast.show('修改成功 🎉')
           history.push(`/appDashboard${window.location.search}`)
           pingCurrentUser().then((res) => {
             if (res.data) {
@@ -72,7 +71,7 @@ const UpdateUserInfo = () => {
 
   return (
     <div className={s.pageContainer}>
-      <TopInfo text="TaDah" />
+      <TopInfo text="TaDah 修改信息" />
       <AvatarUpload avatarSrc={headimage} setAvatarSrc={setHeadimage} />
       <FormInput
         icon={userIcon}
