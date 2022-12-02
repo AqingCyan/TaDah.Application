@@ -43,3 +43,13 @@ export const registerAccount = (
  */
 export const loginAccount = (data: { uid: string; password: string }): API.FetchResponse<string> =>
   request().post('/auth/login', { data })
+
+/**
+ * 更新用户信息
+ * @param data
+ */
+export const updateUserInfo = (data: {
+  nickname: string
+  headimgurl?: string
+  email: string
+}): API.FetchResponse<boolean> => request().put('/account/updateUserInfo', { data })

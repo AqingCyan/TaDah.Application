@@ -1,7 +1,6 @@
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { history, useLocation } from 'umi'
 import { parse } from 'query-string'
-import confetti from 'canvas-confetti'
 import TopInfo from '@/components/TopInfo'
 import FormInput from '@/components/FormInput'
 import PageLoading from '@/components/PageLoading'
@@ -13,8 +12,10 @@ import emailBlack from '@/assets/emailBlack.svg'
 import emailWhite from '@/assets/emailWhite.svg'
 import useTheme from '@/hooks/useTheme'
 import Toast from '@/components/Toast'
-import { checkRegistration, loginAccount, registerAccount, uploadHeadImage } from '@/services/user'
+import { checkRegistration, loginAccount, registerAccount } from '@/services/user'
+import { tadah } from '@/utils/helpers'
 import s from './index.module.less'
+import AvatarUpload from '@/components/AvatarUpload'
 
 const Login = () => {
   const { inDark } = useTheme()
@@ -39,7 +40,7 @@ const Login = () => {
           setShowType(res.data ? 'login' : 'register')
           setHeadimage(res.data ? 'https://headimage-1259237065.cos.ap-hongkong.myqcloud.com/118211681.png' : '')
         } else {
-          // TODO 错误处理
+          Toast.show('加载信息错误')
         }
       })
     }
@@ -61,57 +62,6 @@ const Login = () => {
     () => <img className={s.inputIcon} src={inDark ? passwordWhite : passwordBlack} alt="passwordIcon" />,
     [inDark],
   )
-
-  /**
-   * 上传头像
-   * @param e
-   */
-  const uploadFile = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const fileData = e.target.files[0]
-      const formData = new FormData()
-      formData.append('headimage', fileData)
-      uploadHeadImage(formData).then((res) => {
-        if (res.data) {
-          setHeadimage(res.data)
-        } else {
-          Toast.show('头像上传失败')
-        }
-      })
-    }
-  }
-
-  // TODO 看要不要做一个头像裁剪的功能
-  const renderHeaderImageUpload = () => {
-    return (
-      <div className={s.headerImageUpload}>
-        {showType === 'register' && <input type="file" accept="image/png,image/jpeg" onChange={uploadFile} />}
-        {headimage ? <img src={headimage} alt="headimage" /> : <span>+</span>}
-      </div>
-    )
-  }
-
-  /**
-   * 彩带雨
-   */
-  const tadah = () => {
-    const myCanvas = document.createElement('canvas')
-    myCanvas.style.position = 'fixed'
-    myCanvas.style.width = '100vw'
-    myCanvas.style.height = '90vh'
-    myCanvas.style.top = '0px'
-    myCanvas.style.pointerEvents = 'none'
-    document.body.appendChild(myCanvas)
-
-    const myConfetti = confetti.create(myCanvas, {
-      resize: true,
-      useWorker: true,
-    })
-    myConfetti({
-      particleCount: 200,
-      spread: 200,
-    })
-  }
 
   /**
    * 注册动作
@@ -159,7 +109,7 @@ const Login = () => {
       <TopInfo text="TaDah" />
       {showType ? (
         <>
-          {renderHeaderImageUpload()}
+          <AvatarUpload avatarSrc={headimage} setAvatarSrc={setHeadimage} disabled={showType === 'login'} />
           {showType === 'register' && (
             <FormInput
               icon={userIcon}
