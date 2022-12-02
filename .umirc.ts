@@ -18,7 +18,7 @@ export default {
       path: '/',
       component: '@/layouts/index',
       routes: [
-        { path: '/', redirect: '/AddRecord' },
+        { path: '/', redirect: '/appDashboard' },
         { path: '/login', component: '@/pages/Login', title: '登录' },
         { path: '/appDashboard', component: '@/pages/AppDashboard', title: '登录' },
         { path: '/addRecord', component: '@/pages/AddRecord', title: '记一笔账' },
