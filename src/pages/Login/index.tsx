@@ -12,6 +12,7 @@ import passwordBlack from '@/assets/passworBlack.svg'
 import emailBlack from '@/assets/emailBlack.svg'
 import emailWhite from '@/assets/emailWhite.svg'
 import useTheme from '@/hooks/useTheme'
+import Toast from '@/components/Toast'
 import { checkRegistration, loginAccount, registerAccount, uploadHeadImage } from '@/services/user'
 import s from './index.module.less'
 
@@ -26,7 +27,9 @@ const Login = () => {
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
   const [headimage, setHeadimage] = useState<string>('')
+  const [nicknameErrorText, setNicknameErrorText] = useState<string>('')
   const [emailErrorText, setEmailErrorText] = useState<string>('')
+  const [passwordErrorText, setPasswordErrorText] = useState<string>('')
   const [confirmPasswordErrorText, setConfirmPasswordErrorText] = useState<string>('')
 
   const handleFirstPage = () => {
@@ -72,7 +75,7 @@ const Login = () => {
         if (res.data) {
           setHeadimage(res.data)
         } else {
-          // TODO 造一个提示组件
+          Toast.show('头像上传失败')
         }
       })
     }
@@ -121,11 +124,14 @@ const Login = () => {
           setShowType('login')
           setPassword('')
         } else {
-          // TODO toast 提示
+          Toast.show(res.message)
         }
       })
     } else {
-      // TODO toast 提示
+      if (!nickname) setNicknameErrorText('昵称未填写')
+      if (!email) setEmailErrorText('邮箱未填写')
+      if (!password) setPasswordErrorText('密码未填写')
+      if (!confirmPassword) setConfirmPasswordErrorText('确认密码未填写')
     }
   }
 
@@ -139,10 +145,12 @@ const Login = () => {
           window.localStorage.setItem('bearer_token', res.data)
           history.push(`/appDashboard${window.location.search}`)
           tadah()
+        } else {
+          Toast.show(res.message)
         }
       })
     } else {
-      // TODO toast 提示
+      setPasswordErrorText('密码未填写')
     }
   }
 
@@ -156,15 +164,23 @@ const Login = () => {
             <FormInput
               icon={userIcon}
               value={nickname}
-              onChange={(e) => setNickname(e.target.value.trim().slice(0, 15))}
+              onChange={(e) => {
+                setNickname(e.target.value.trim().slice(0, 10))
+                setNicknameErrorText('')
+              }}
               placeholder="请输入您的昵称"
+              errorStatus={Boolean(nicknameErrorText)}
+              errorText={nicknameErrorText}
             />
           )}
           {showType === 'register' && (
             <FormInput
               icon={emailIcon}
               value={email}
-              onChange={(e) => setEmail(e.target.value.trim())}
+              onChange={(e) => {
+                setEmail(e.target.value.trim())
+                setEmailErrorText('')
+              }}
               onBlur={() => {
                 const pass = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)
                 setEmailErrorText(pass ? '' : '邮箱格式有误')
@@ -177,17 +193,23 @@ const Login = () => {
           <FormInput
             icon={passwordIcon}
             value={password}
-            onChange={(e) => setPassword(e.target.value.trim())}
+            onChange={(e) => {
+              setPassword(e.target.value.trim())
+              setPasswordErrorText('')
+            }}
             type="password"
             placeholder="请输入您的密码"
-            errorText={confirmPasswordErrorText}
-            errorStatus={Boolean(confirmPasswordErrorText)}
+            errorText={passwordErrorText}
+            errorStatus={Boolean(passwordErrorText)}
           />
           {showType === 'register' && (
             <FormInput
               icon={passwordIcon}
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value.trim())}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value.trim())
+                setConfirmPasswordErrorText('')
+              }}
               type="password"
               placeholder="请确认您的密码"
               errorText={confirmPasswordErrorText}

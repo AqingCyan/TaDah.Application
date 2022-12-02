@@ -1,0 +1,16 @@
+.toast {
+  @apply fixed text-white w-fit flex-items-center;
+  box-sizing: content-box;
+  bottom: 158px;
+  padding: 30px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background: rgba(31, 36, 46, 0.8);
+  background-blend-mode: multiply;
+  border-radius: 10px;
+  font-size: 28px;
+  line-height: 39px;
+  z-index: 1000;
+  white-space: nowrap;
+  height: fit-content;
+}

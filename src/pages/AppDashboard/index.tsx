@@ -17,6 +17,8 @@ import weatherBlack from './icons/weatherBlack.svg'
 import weatherWhite from './icons/weatherWhite.svg'
 import userWhite from './icons/userWhite.svg'
 import userBlack from './icons/userBlack.svg'
+import changePasswordBlack from './icons/changePasswordBlack.svg'
+import changePasswordWhite from './icons/changePasswordWhite.svg'
 import { currentUserAtom } from '@/models/useCurrentUser'
 import { pingCurrentUser } from '@/services/user'
 import s from './index.module.less'
@@ -49,8 +51,13 @@ export const userIcon = (dark: boolean) => {
   return !dark ? userBlack : userWhite
 }
 
+export const changePasswordIcon = (dark: boolean) => {
+  return !dark ? changePasswordBlack : changePasswordWhite
+}
+
 const applications = [
-  { name: '用户信息', route: '/updateUserInfo', iconFunc: userIcon },
+  { name: '修改信息', route: '/updateUserInfo', iconFunc: userIcon },
+  { name: '修改密码', route: '/changePassword', iconFunc: changePasswordIcon },
   { name: '简单记账', route: '/accountBook', iconFunc: accountBookIcon },
   { name: '今天吃啥', route: '/dinner', iconFunc: dinnerIcon },
   { name: '快递查询', route: '/express', iconFunc: expressIcon },
