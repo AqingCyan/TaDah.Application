@@ -11,13 +11,13 @@ declare global {
       'em-emoji': React.DetailedHTMLProps<React.HTMLAttributes<EmojiProps>, EmojiProps>
     }
   }
-}
 
-declare namespace API {
-  type FetchResponse<T> = Promise<{
-    message: string
-    error: string
-    statusCode: number
-    data: T
-  }>
+  namespace API {
+    type FetchResponse<T> = Promise<{
+      message: string
+      error: string
+      statusCode: number
+      data: T
+    }>
+  }
 }

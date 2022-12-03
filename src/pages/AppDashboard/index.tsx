@@ -23,35 +23,35 @@ import { currentUserAtom } from '@/models/useCurrentUser'
 import { pingCurrentUser } from '@/services/user'
 import s from './index.module.less'
 
-export const accountBookIcon = (dark: boolean) => {
+const accountBookIcon = (dark: boolean) => {
   return !dark ? accountBookBlack : accountBookWhite
 }
 
-export const dinnerIcon = (dark: boolean) => {
+const dinnerIcon = (dark: boolean) => {
   return !dark ? dinnerBlack : dinnerWhite
 }
 
-export const dayOfCommemorationIcon = (dark: boolean) => {
+const dayOfCommemorationIcon = (dark: boolean) => {
   return !dark ? dayOfCommemorationBlack : dayOfCommemorationWhite
 }
 
-export const expressIcon = (dark: boolean) => {
+const expressIcon = (dark: boolean) => {
   return !dark ? expressBlack : expressWhite
 }
 
-export const memoIcon = (dark: boolean) => {
+const memoIcon = (dark: boolean) => {
   return !dark ? memoBlack : memoWhite
 }
 
-export const weatherIcon = (dark: boolean) => {
+const weatherIcon = (dark: boolean) => {
   return !dark ? weatherBlack : weatherWhite
 }
 
-export const userIcon = (dark: boolean) => {
+const userIcon = (dark: boolean) => {
   return !dark ? userBlack : userWhite
 }
 
-export const changePasswordIcon = (dark: boolean) => {
+const changePasswordIcon = (dark: boolean) => {
   return !dark ? changePasswordBlack : changePasswordWhite
 }
 

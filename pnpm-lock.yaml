@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@emoji-mart/data': ^1.0.8
   '@types/canvas-confetti': ^1.6.0
+  '@types/lodash': ^4.14.191
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
   '@types/use-persisted-state': ^0.3.1
@@ -11,6 +12,7 @@ specifiers:
   dayjs: ^1.11.6
   emoji-mart: ^5.3.2
   jotai: ^1.11.0
+  lodash: ^4.17.21
   postcss-px-to-viewport: ^1.1.1
   prettier: ^2
   prettier-plugin-organize-imports: ^2
@@ -29,6 +31,7 @@ dependencies:
   dayjs: 1.11.6
   emoji-mart: 5.3.2
   jotai: 1.11.0
+  lodash: 4.17.21
   query-string: 7.1.1
   react-responsive: 9.0.0
   swiper: 8.4.4
@@ -38,6 +41,7 @@ dependencies:
 
 devDependencies:
   '@types/canvas-confetti': 1.6.0
+  '@types/lodash': 4.14.191
   '@types/react': 18.0.25
   '@types/react-dom': 18.0.8
   '@types/use-persisted-state': 0.3.1
@@ -1309,6 +1313,10 @@ packages:
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: false
+
+  /@types/lodash/4.14.191:
+    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
+    dev: true
 
   /@types/minimatch/5.1.2:
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}

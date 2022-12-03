@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-import { API } from '../../../typings'
 
 /**
  * 获取登录用户信息
