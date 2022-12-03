@@ -1,0 +1,161 @@
+.weather {
+  width: 100%;
+  font-size: -webkit-calc(0.55em);
+  font-size: calc(0.55em);
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  font-family: 'Work Sans', sans-serif;
+  color: #e6e8db;
+}
+
+.night {
+  display: block;
+  position: relative;
+  font-size: -webkit-calc(11em);
+  font-size: calc(11em);
+  width: 1em;
+  height: 1em;
+  margin: 0.3em;
+  border-radius: 100%;
+  -webkit-box-shadow: 0 0 0 0.05em currentColor inset, 0 0 0.3em -0.03em #5133a5;
+  box-shadow: 0 0 0 0.05em currentColor inset, 0 0 0.3em -0.03em #5133a5;
+  background: -webkit-gradient(linear, from(#4054b2), to(#aa4cba));
+  background: -webkit-linear-gradient(bottom right, #4054b2 0%, #aa4cba 65%);
+  background: linear-gradient(to bottom right, #4054b2 0%, #aa4cba 65%);
+}
+
+.night::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: -webkit-radial-gradient(1px 1px at 50% 20%, #fff, rgba(0, 0, 0, 0)),
+    -webkit-radial-gradient(1px 1px at 30% 65%, #fff, rgba(0, 0, 0, 0)),
+    -webkit-radial-gradient(2px 2px at 15% 5%, #fff, rgba(0, 0, 0, 0)),
+    -webkit-radial-gradient(2px 2px at 37% 35%, #fff, rgba(0, 0, 0, 0)),
+    -webkit-radial-gradient(2px 2px at 65% 47%, #fff, rgba(0, 0, 0, 0)),
+    -webkit-radial-gradient(1px 1px at 42% 29%, #fff, rgba(0, 0, 0, 0)),
+    -webkit-radial-gradient(1px 1px at 73% 56%, #fff, rgba(0, 0, 0, 0)),
+    -webkit-radial-gradient(1px 1px at 24% 19%, #fff, rgba(0, 0, 0, 0)),
+    -webkit-radial-gradient(2px 2px at 31% 47%, #fff, rgba(0, 0, 0, 0)),
+    -webkit-radial-gradient(1px 1px at 18% 39%, #fff, rgba(0, 0, 0, 0));
+  background-image: radial-gradient(1px 1px at 50% 20%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 30% 65%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 15% 5%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 37% 35%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 65% 47%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 42% 29%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 73% 56%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 24% 19%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 31% 47%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 18% 39%, #fff, rgba(0, 0, 0, 0));
+  background-repeat: repeat;
+  will-change: transform;
+  -webkit-animation: revolve 120000ms linear infinite;
+  animation: revolve 120000ms linear infinite;
+}
+
+.moon {
+  position: absolute;
+  top: 20%;
+  left: 80%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 40%;
+  border-radius: 100%;
+  background: -webkit-radial-gradient(bottom left, circle, currentColor, #fef07e);
+  background: radial-gradient(circle at bottom left, currentColor, #fef07e);
+  -webkit-box-shadow: 0 0 0 0.02em currentColor inset, 0 0 0.3em -0.03em #aa4cba;
+  box-shadow: 0 0 0 0.02em currentColor inset, 0 0 0.3em -0.03em #aa4cba;
+}
+
+.moon::before,
+.moon::after {
+  content: '';
+  position: absolute;
+  border-radius: 100%;
+  background-color: #4054b2;
+  -webkit-box-shadow: 0.01em 0.01em 0.1em 0 #4054b2;
+  box-shadow: 0.01em 0.01em 0.1em 0 #4054b2;
+}
+
+.moon::before {
+  top: 15%;
+  left: 55%;
+  width: 20%;
+  height: 20%;
+  opacity: 0.3;
+}
+
+.moon::after {
+  bottom: 50%;
+  left: 25%;
+  width: 15%;
+  height: 15%;
+  opacity: 0.2;
+}
+
+.meteor {
+  position: absolute;
+  background-color: #fff;
+  opacity: 0;
+  top: 20%;
+  left: 55%;
+  width: 1px;
+  height: 15px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  will-change: transform, opacity;
+  -webkit-animation: meteor 6250ms infinite ease-in;
+  animation: meteor 6250ms infinite ease-in;
+}
+
+@-webkit-keyframes revolve {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes revolve {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes meteor {
+  5% {
+    opacity: 1;
+  }
+  8% {
+    -webkit-transform: translate(-0.6em, 0.6em) rotate(45deg);
+    transform: translate(-0.6em, 0.6em) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes meteor {
+  5% {
+    opacity: 1;
+  }
+  8% {
+    -webkit-transform: translate(-0.6em, 0.6em) rotate(45deg);
+    transform: translate(-0.6em, 0.6em) rotate(45deg);
+    opacity: 0;
+  }
+}

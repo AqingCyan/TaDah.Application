@@ -1,0 +1,140 @@
+.pageContainer {
+  width: 100vw;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 32px 32px;
+  background: var(--page-background);
+
+  .baseWeatherBox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 622px;
+    height: 200px;
+    margin-top: 100px;
+    margin-left: 64px;
+    background: var(--button-not-select-background);
+    box-shadow: var(--shadow-val);
+    border-radius: 32px;
+    border: 1px solid var(--not-active-border);
+
+    .weatherShow {
+      position: absolute;
+      left: -134px;
+      top: -56px;
+    }
+
+    .weatherInfo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 460px;
+      padding-right: 32px;
+      box-sizing: border-box;
+
+      .baseInfo {
+        h2,
+        p {
+          margin: 0;
+          color: var(--primary-font-color);
+        }
+
+        p {
+          margin-top: 10px;
+          font-size: 40px;
+        }
+      }
+
+      .temperature {
+        position: relative;
+        margin-right: 40px;
+        font-size: 145px;
+        color: var(--primary-font-color);
+
+        &::after {
+          position: absolute;
+          top: 40px;
+          right: -40px;
+          content: '';
+          display: block;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          border: 8px solid var(--primary-font-color);
+        }
+      }
+    }
+  }
+
+  .oneDay {
+    height: 370px;
+    width: 100%;
+    margin: 48px auto;
+    background: var(--button-not-select-background);
+    box-shadow: var(--shadow-val);
+    border-radius: 32px;
+    border: 1px solid var(--not-active-border);
+
+    h2 {
+      margin: 0;
+      padding: 0 32px;
+      font-size: 36px;
+      line-height: 110px;
+      color: var(--primary-font-color);
+      border-bottom: 1px solid var(--not-active-border);
+    }
+
+    .timeWeatherBox {
+      display: flex;
+      align-items: center;
+      max-width: 100%;
+      overflow: auto;
+      padding: 20px 32px;
+      box-sizing: border-box;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .timeWeather {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 90px;
+        color: var(--primary-font-color);
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        img {
+          height: 60px;
+          margin: 29px 0;
+        }
+
+        .time {
+          white-space: nowrap;
+        }
+
+        .temperature {
+          position: relative;
+          margin-left: -10px;
+          font-size: 40px;
+
+          &::after {
+            position: absolute;
+            top: 10px;
+            right: -20px;
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            border: 3px solid var(--primary-font-color);
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}

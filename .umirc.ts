@@ -25,6 +25,7 @@ export default {
         { path: '/appDashboard', component: '@/pages/AppDashboard', title: 'TaDah应用' },
         { path: '/addRecord', component: '@/pages/AddRecord', title: '记一笔账' },
         { path: '/accountBook', component: '@/pages/AccountBook', title: '记一笔账' },
+        { path: '/weather', component: '@/pages/Weather', title: '天气查询' },
       ],
     },
   ],

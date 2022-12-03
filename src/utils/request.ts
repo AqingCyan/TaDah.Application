@@ -14,9 +14,8 @@ const request = () =>
     headers: { Authorization: `Bearer ${window.localStorage.getItem('bearer_token')}` },
     errorHandler: (err: { data: { statusCode: number; message: string } }) => {
       const { data } = err
-      const { location } = window
       if (data.statusCode === 401) {
-        history.push(`/login${location.search}`)
+        history.push(`/login${window.location.search}`)
       }
       return data
     },
