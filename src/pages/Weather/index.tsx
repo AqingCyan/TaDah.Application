@@ -22,6 +22,7 @@ import Toast from '@/components/Toast'
 import { cityIcon, suggestionMap, weekMap } from './config'
 import s from './index.module.less'
 
+// TODO 多个城市支持 / 修改城市
 const Weather = () => {
   const { inDark } = useTheme()
 
@@ -57,8 +58,11 @@ const Weather = () => {
     }
   }
 
-  useEffect(checkLocalStorage, [])
-  useEffect(() => {
+  /**
+   * 初始化数据
+   * TODO 服务端聚合一下数据接口
+   */
+  const initData = () => {
     if (currentCity) {
       fetchCurrentWeather(currentCity.cityCode).then((res) => {
         if (res.data && res.data.results.length) {
@@ -86,7 +90,10 @@ const Weather = () => {
         }
       })
     }
-  }, [currentCity])
+  }
+
+  useEffect(checkLocalStorage, [])
+  useEffect(initData, [currentCity])
 
   const weatherComp = useMemo(() => {
     const sunnyKey = [0, 2, 39]
