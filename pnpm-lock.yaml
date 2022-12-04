@@ -12,7 +12,6 @@ specifiers:
   dayjs: ^1.11.6
   emoji-mart: ^5.3.2
   jotai: ^1.11.0
-  lodash: ^4.17.21
   postcss-px-to-viewport: ^1.1.1
   prettier: ^2
   prettier-plugin-organize-imports: ^2
@@ -31,7 +30,6 @@ dependencies:
   dayjs: 1.11.6
   emoji-mart: 5.3.2
   jotai: 1.11.0
-  lodash: 4.17.21
   query-string: 7.1.1
   react-responsive: 9.0.0
   swiper: 8.4.4
