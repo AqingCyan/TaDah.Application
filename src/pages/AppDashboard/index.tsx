@@ -61,9 +61,9 @@ const applications = [
   { name: '简单记账', route: '/accountBook', iconFunc: accountBookIcon },
   { name: '今天吃啥', route: '/dinner', iconFunc: dinnerIcon },
   { name: '快递查询', route: '/express', iconFunc: expressIcon },
-  { name: '备忘录', route: '/memo', iconFunc: memoIcon },
-  { name: '纪念日', route: '/dayOfCommemoration', iconFunc: dayOfCommemorationIcon },
   { name: '天气查询', route: '/weather', iconFunc: weatherIcon },
+  { name: '👨🏻‍💻构建中', route: '/dayOfCommemoration', iconFunc: dayOfCommemorationIcon },
+  { name: '🚀构建中', route: '/memo', iconFunc: memoIcon },
 ]
 
 const AppDashboard = () => {
