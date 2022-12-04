@@ -1,3 +1,3 @@
-# TaDah Tally
+# TaDah Application
 
-TaDah 记账模块的 H5 应用
+TaDah H5 应用
