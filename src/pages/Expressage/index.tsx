@@ -1,39 +1,81 @@
-import React, { useMemo, useState } from 'react'
-import dayjs from 'dayjs'
+import React, { useEffect, useMemo, useState } from 'react'
+import { history } from 'umi'
 import TopInfo from '@/components/TopInfo'
 import FormInput from '@/components/FormInput'
 import Toast from '@/components/Toast'
 import useTheme from '@/hooks/useTheme'
 import nothingBlack from '@/assets/nothingBlack.svg'
 import nothingWhite from '@/assets/nothingWhite.svg'
+import closeWhite from '@/assets/closeWhite.svg'
+import closeBlack from '@/assets/closeBlack.svg'
 import expressWhite from './icons/expressWhite.svg'
 import expressBlack from './icons/expressBlack.svg'
+import truckIcon from './icons/truck.svg'
+import attainIcon from './icons/attain.svg'
 import { loadExpressRoad } from '@/services/expressage'
+import { stateMap } from './config'
+import { useAtom } from 'jotai'
+import { currentExpressInfoAtom } from '@/models/useCurrentExpressInfo'
 import s from './index.module.less'
 
 const Expressage = () => {
   const { inDark } = useTheme()
 
+  const [, setCurrentExpressInfo] = useAtom(currentExpressInfoAtom)
+
   const nothingSvg = useMemo(() => (inDark ? nothingWhite : nothingBlack), [inDark])
   const expressIcon = useMemo(() => (inDark ? expressWhite : expressBlack), [inDark])
+  const closeIcon = useMemo(() => (inDark ? closeWhite : closeBlack), [inDark])
 
   const [courierNumber, setCourierNumber] = useState<string>('')
-  const [info, setInfo] = useState<{ company: string; location: EXPRESS.Location[] }>()
+  const [info, setInfo] = useState<EXPRESS.ExpressInfo[]>([])
+
+  useEffect(() => {
+    const listCourierNumber = window.localStorage.getItem('listCourierNumber')
+    let list: string[] = []
+    try {
+      if (listCourierNumber) {
+        list = JSON.parse(listCourierNumber)
+      }
+    } catch (error) {}
+    for (let i = 0; i < list.length; i++) {
+      loadExpressRoad(list[i]).then((res) => {
+        if (res.data) {
+          setInfo([...info, res.data])
+        } else {
+          Toast.show(res.message)
+        }
+      })
+    }
+  }, [])
 
   /**
    * 搜索列表
    */
   const searchList = () => {
-    if (courierNumber) {
+    const listCourierNumber = window.localStorage.getItem('listCourierNumber')
+    let list: string[] = []
+    try {
+      if (listCourierNumber) {
+        list = JSON.parse(listCourierNumber)
+        if (list.length >= 3) {
+          Toast.show('最多缓存三个快递信息，请删除历史信息')
+          return
+        }
+      }
+    } catch (error) {}
+    if (courierNumber && !list.includes(courierNumber)) {
       loadExpressRoad(courierNumber).then((res) => {
         if (res.data) {
-          setInfo(res.data)
+          setInfo([...info, res.data])
+          list.push(courierNumber)
+          window.localStorage.setItem('listCourierNumber', JSON.stringify(list))
         } else {
           Toast.show(res.message)
         }
       })
     } else {
-      Toast.show('请输入快递单号 😵‍💫')
+      Toast.show('快递单号有误或重复 😵‍💫')
     }
   }
 
@@ -53,20 +95,66 @@ const Expressage = () => {
         </button>
       </section>
 
-      {info ? (
+      {info.length ? (
         <section className={s.dataBox}>
-          <h2>{info.company}</h2>
-
-          {info.location.map((item, index) => (
+          {info.map((item) => (
             <div
-              key={item.time}
-              className={s.locationBox}
-              style={index === 0 ? { borderColor: 'var(--primary-color)' } : undefined}
+              className={s.card}
+              key={item.nu}
+              onClick={() => {
+                const from = item?.routeInfo?.from ? item.routeInfo.from.name.split(',').join('') : ''
+                const to = item?.routeInfo?.to ? item.routeInfo.to.name.split(',').join('') : ''
+                setCurrentExpressInfo({
+                  from,
+                  num: item.nu,
+                  com: item.com,
+                  to: to || (item?.routeInfo?.cur ? item.routeInfo.cur.name.split(',').join('') : ''),
+                  mapConfigKey: inDark ? 'a64PM4p7tdung2GPsY' : 'BHDyNJhRNJTB2k1G96',
+                })
+                history.push('/expressMap')
+              }}
             >
-              <p className={s.topMessage} style={index === 0 ? { borderColor: 'var(--primary-color)' } : undefined}>
-                <span>{item.status}</span> {dayjs(item.time).format('M月DD日 HH:mm')}
+              <img
+                className={s.closeIcon}
+                src={closeIcon}
+                alt="closeIcon"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  const result = info.filter((ele) => ele.nu !== item.nu)
+                  setInfo(result)
+                  window.localStorage.setItem('listCourierNumber', JSON.stringify(result.map((item) => item.nu)))
+                }}
+              />
+              <p className={s.title}>
+                {item.comZh} · {item.nu}
               </p>
-              <p className={s.content}>{item.context}</p>
+              <div className={s.lineBox}>
+                <span className={s.start} />
+                <span className={s.line} />
+                <span className={s.mid}>
+                  <img src={item.state.startsWith('3') ? attainIcon : truckIcon} alt="icon" />
+                </span>
+                <span
+                  className={s.line}
+                  style={item.state.startsWith('3') ? undefined : { background: 'var(--primary-font-color)' }}
+                />
+                <span
+                  className={s.end}
+                  style={item.state.startsWith('3') ? undefined : { background: 'var(--primary-font-color)' }}
+                />
+              </div>
+              <div className={s.fromTo}>
+                <div className={s.location}>
+                  {item.routeInfo.from ? item.routeInfo.from.name.split(',')[0] : '未知'}
+                </div>
+                {/* @ts-ignore */}
+                <div className={s.location}>{stateMap[item.state]}</div>
+                <div className={s.location}>
+                  {item.routeInfo.to ? item.routeInfo.to.name.split(',')[0] : '暂未达到'}
+                </div>
+              </div>
+              <p className={s.baseInfo}>{item.data[0].location}</p>
+              <p className={s.detail}>{item.data[0].context}</p>
             </div>
           ))}
         </section>

@@ -24,6 +24,7 @@ export default {
         { path: '/changePassword', component: '@/pages/ChangePassword', title: '修改密码' },
         { path: '/appDashboard', component: '@/pages/AppDashboard', title: 'TaDah应用' },
         { path: '/express', component: '@/pages/Expressage', title: '物流查询' },
+        { path: '/expressMap', component: '@/pages/ExpressMap', title: '物流查询' },
         { path: '/addRecord', component: '@/pages/AddRecord', title: '记一笔账' },
         { path: '/accountBook', component: '@/pages/AccountBook', title: '记一笔账' },
         { path: '/weather', component: '@/pages/Weather', title: '天气查询' },
