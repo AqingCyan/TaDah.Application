@@ -30,7 +30,10 @@ const Expressage = () => {
   const [courierNumber, setCourierNumber] = useState<string>('')
   const [info, setInfo] = useState<EXPRESS.ExpressInfo[]>([])
 
-  useEffect(() => {
+  /**
+   * 初始化数据
+   */
+  const initData = () => {
     const listCourierNumber = window.localStorage.getItem('listCourierNumber')
     let list: string[] = []
     try {
@@ -38,16 +41,18 @@ const Expressage = () => {
         list = JSON.parse(listCourierNumber)
       }
     } catch (error) {}
-    for (let i = 0; i < list.length; i++) {
-      loadExpressRoad(list[i]).then((res) => {
-        if (res.data) {
-          setInfo([...info, res.data])
-        } else {
-          Toast.show(res.message)
-        }
-      })
-    }
-  }, [])
+    const promiseList: Promise<any>[] = []
+    list.forEach((item) => {
+      promiseList.push(loadExpressRoad(item))
+    })
+
+    Promise.all(promiseList).then((res) => {
+      const result = res.map((item) => item.data)
+      setInfo(result)
+    })
+  }
+
+  useEffect(initData, [])
 
   /**
    * 搜索列表
@@ -104,14 +109,18 @@ const Expressage = () => {
               onClick={() => {
                 const from = item?.routeInfo?.from ? item.routeInfo.from.name.split(',').join('') : ''
                 const to = item?.routeInfo?.to ? item.routeInfo.to.name.split(',').join('') : ''
-                setCurrentExpressInfo({
-                  from,
-                  num: item.nu,
-                  com: item.com,
-                  to: to || (item?.routeInfo?.cur ? item.routeInfo.cur.name.split(',').join('') : ''),
-                  mapConfigKey: inDark ? 'a64PM4p7tdung2GPsY' : 'BHDyNJhRNJTB2k1G96',
-                })
-                history.push('/expressMap')
+                if (from) {
+                  setCurrentExpressInfo({
+                    from,
+                    to,
+                    num: item.nu,
+                    com: item.com,
+                    mapConfigKey: inDark ? 'a64PM4p7tdung2GPsY' : 'BHDyNJhRNJTB2k1G96',
+                  })
+                  history.push('/expressMap')
+                } else {
+                  Toast.show('包裹还未开始走动')
+                }
               }}
             >
               <img
@@ -134,14 +143,8 @@ const Expressage = () => {
                 <span className={s.mid}>
                   <img src={item.state.startsWith('3') ? attainIcon : truckIcon} alt="icon" />
                 </span>
-                <span
-                  className={s.line}
-                  style={item.state.startsWith('3') ? undefined : { background: 'var(--primary-font-color)' }}
-                />
-                <span
-                  className={s.end}
-                  style={item.state.startsWith('3') ? undefined : { background: 'var(--primary-font-color)' }}
-                />
+                <span className={s.line} style={item.state.startsWith('3') ? undefined : { background: '#e2e2e2' }} />
+                <span className={s.end} style={item.state.startsWith('3') ? undefined : { background: '#e2e2e2' }} />
               </div>
               <div className={s.fromTo}>
                 <div className={s.location}>
