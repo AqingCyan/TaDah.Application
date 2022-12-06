@@ -9,6 +9,8 @@ import Stormy from './components/Stormy'
 import NightClean from './components/NightClean'
 import FormInput from '@/components/FormInput'
 import * as weatherIcons from './components/WeatherIcons'
+import { useAtom } from 'jotai'
+import { currentWeatherDetailAtom } from '@/models/useCurrentWeatherInfo'
 import PageLoading from '@/components/PageLoading'
 import {
   fetchAirQuality,
@@ -26,6 +28,8 @@ import s from './index.module.less'
 const Weather = () => {
   const { inDark } = useTheme()
 
+  const [currentWeatherDetail] = useAtom(currentWeatherDetailAtom)
+
   const [showSearchList, setShowSearchList] = useState<boolean>(false)
   const [cityKeyword, setCityKeyword] = useState<string>('')
   const [cityList, setCityList] = useState<WEATHER.CityListItem[]>([])
@@ -36,27 +40,9 @@ const Weather = () => {
   const [airQuality, setAirQuality] = useState<WEATHER.AirQuality>()
   const [liveQuality, setLiveQuality] = useState<WEATHER.LiveQuality>()
 
-  /**
-   * 检查缓存
-   */
-  const checkLocalStorage = () => {
-    const cityInfo = window.localStorage.getItem('cityInfo')
-    let hasCity = false
-    try {
-      if (cityInfo) {
-        const res = JSON.parse(cityInfo)
-        if (res.cityCode && res.cityName) {
-          hasCity = true
-          setCurrentCity(res)
-        }
-      }
-    } catch (error) {
-      hasCity = false
-    }
-    if (!hasCity) {
-      setShowSearchList(true)
-    }
-  }
+  useEffect(() => {
+    if (!currentWeatherDetail) setShowSearchList(true)
+  }, [currentWeatherDetail])
 
   /**
    * 初始化数据
@@ -92,7 +78,6 @@ const Weather = () => {
     }
   }
 
-  useEffect(checkLocalStorage, [])
   useEffect(initData, [currentCity])
 
   const weatherComp = useMemo(() => {
@@ -133,7 +118,7 @@ const Weather = () => {
   const renderSearchCity = () => {
     return (
       <section className={s.searchCity}>
-        <h1>哦！不知道在哪个城市呢！🙌</h1>
+        <h1>请输入一个城市名</h1>
         <div className={s.searchBox}>
           <FormInput
             icon={<img className={s.inputIcon} src={cityIcon(inDark)} alt="cityIcon" />}

@@ -44,3 +44,11 @@ export const suggestionMap = [
 export const cityIcon = (dark: boolean) => {
   return !dark ? cityBlack : cityWhite
 }
+
+export const weatherCodeCollection = {
+  sunnyKey: [0, 2, 39],
+  cloudKey: [4, 5, 6, 7, 8, 26, 27, 28, 29, 39, 31, 32, 33, 34, 35, 36, 37],
+  stormKey: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+  snowKey: [21, 22, 23, 24, 25, 38],
+  nightKey: [1, 3],
+}

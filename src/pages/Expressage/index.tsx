@@ -41,7 +41,7 @@ const Expressage = () => {
         list = JSON.parse(listCourierNumber)
       }
     } catch (error) {}
-    const promiseList: Promise<any>[] = []
+    const promiseList: API.FetchResponse<EXPRESS.ExpressInfo>[] = []
     list.forEach((item) => {
       promiseList.push(loadExpressRoad(item))
     })

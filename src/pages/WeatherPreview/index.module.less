@@ -1,0 +1,156 @@
+.pageContainer {
+  width: 100vw;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 32px 32px;
+  background: var(--page-background);
+
+  .topCard {
+    width: 100%;
+    margin: 48px 0;
+    padding: 32px;
+    box-sizing: border-box;
+    background: var(--primary-color);
+    border-radius: 32px;
+    box-shadow: var(--shadow-val);
+
+    .date {
+      display: flex;
+      justify-content: space-between;
+      margin: 0;
+      font-size: 36px;
+      color: #ffffff;
+    }
+
+    .showBox {
+      position: relative;
+      padding-top: 36px;
+
+      .comp {
+        position: absolute;
+        left: -48px;
+        top: -12px;
+      }
+
+      .cityInfo {
+        height: 180px;
+        width: 400px;
+        margin-left: auto;
+        color: #ffffff;
+
+        .temperature {
+          position: relative;
+          font-size: 64px;
+
+          &::after {
+            position: absolute;
+            right: -20px;
+            top: 20px;
+            display: block;
+            content: '';
+            width: 10px;
+            height: 10px;
+            border: 4px solid #ffffff;
+            border-radius: 50%;
+          }
+        }
+
+        .text {
+          margin-left: 64px;
+          font-size: 36px;
+        }
+
+        .city {
+          margin: 0;
+          font-size: 32px;
+        }
+      }
+    }
+
+    .updateTime {
+      margin: 64px 0 0;
+      color: #ffffff;
+    }
+  }
+
+  .next5DayBox {
+    font-size: 30px;
+    color: var(--primary-font-color);
+
+    .next24HoursList {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .weatherBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 200px;
+        margin-right: 32px;
+        padding: 32px 0;
+        border-radius: 32px;
+        background: var(--button-not-select-background);
+
+        img {
+          height: 80px;
+        }
+
+        .temperature {
+          position: relative;
+          transform: translateX(-6px);
+          margin: 24px 0 12px;
+          font-size: 36px;
+          color: var(--primary-font-color);
+
+          &::after {
+            position: absolute;
+            top: 11px;
+            right: -12px;
+            display: block;
+            content: '';
+            width: 5px;
+            height: 5px;
+            border: 2px solid var(--primary-font-color);
+            border-radius: 50%;
+          }
+        }
+
+        .time {
+          color: var(--primary-font-color);
+        }
+      }
+    }
+  }
+
+  .emptyBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+
+    img {
+      width: 420px;
+      margin-bottom: 32px;
+    }
+
+    button {
+      height: 80px;
+      width: 240px;
+      background: var(--primary-color);
+      border-radius: 12px;
+      font-size: 32px;
+      border: none;
+      color: #ffffff;
+      user-select: none;
+      transition: background 0.2s;
+    }
+  }
+}

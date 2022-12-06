@@ -5,7 +5,7 @@ body {
   --modal-background: #ffffff;
   --primary-font-color: #333333;
 
-  --primary-color: #7647fd;
+  --primary-color: rgb(118, 71, 253);
 
   --input-background: #ffffff;
   --input-placeholder-color: #bbbbbb;
@@ -34,7 +34,7 @@ body.dark {
   --modal-background: #ffffff;
   --primary-font-color: #ffffff;
 
-  --primary-color: #7647fd;
+  --primary-color: rgb(118, 71, 253);
 
   --input-background: #242424;
   --input-placeholder-color: #bbbbbb;
@@ -63,7 +63,7 @@ body.green {
   --modal-background: #ffffff;
   --primary-font-color: #333333;
 
-  --primary-color: #385b4e;
+  --primary-color: rgb(56, 91, 78);
 
   --input-background: #ffffff;
   --input-placeholder-color: #bbbbbb;
@@ -92,7 +92,7 @@ body.greenDark {
   --modal-background: #ffffff;
   --primary-font-color: #ffffff;
 
-  --primary-color: #2a7555;
+  --primary-color: rgb(42, 117, 85);
 
   --input-background: #242424;
   --input-placeholder-color: #bbbbbb;
