@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
+import { history } from 'umi'
 import useTheme from '@/hooks/useTheme'
 import FormInput from '@/components/FormInput'
 import { useAtom } from 'jotai'
-import { currentWeatherDetailAtom, next24HoursWeatherAtom, nextAlarmWeatherAtom } from '@/models/useCurrentWeatherInfo'
+import { currentWeatherDetailAtom } from '@/models/useCurrentWeatherInfo'
 import PageLoading from '@/components/PageLoading'
 import {
   fetchAirQuality,
@@ -11,6 +12,7 @@ import {
   fetchLiveQuality,
   fetchNext24HoursWeather,
   fetchNext5dayWeather,
+  fetchNextAlarm,
   searchCity,
 } from '@/services/weather'
 import Toast from '@/components/Toast'
@@ -19,20 +21,24 @@ import WeatherShow from '@/components/WeatherShow'
 import Next24HoursWeather from '@/components/Next24HoursWeather'
 import Next5DaysWeather from '@/components/Next5DaysWeather'
 import AirQuality from '@/components/AirQuality'
-import s from './index.module.less'
 import TopInfo from '@/components/TopInfo'
+import NextAlarm from '@/components/NextAlarm'
+import closeIcon from '@/assets/closeBlack.svg'
+import topIcon from './icons/topIcon.svg'
+import notTopIcon from './icons/notTopIcon.svg'
+import s from './index.module.less'
 
 const Weather = () => {
   const { inDark } = useTheme()
 
   const [currentWeather, setCurrentWeather] = useAtom(currentWeatherDetailAtom)
-  const [next24HoursWeather, setNext24HoursWeather] = useAtom(next24HoursWeatherAtom)
-  const [nextAlarmWeather, setNextAlarmWeather] = useAtom(nextAlarmWeatherAtom)
 
   const [showSearchList, setShowSearchList] = useState<boolean>(false)
   const [cityKeyword, setCityKeyword] = useState<string>('')
   const [cityList, setCityList] = useState<WEATHER.CityListItem[]>([])
   const [currentCity, setCurrentCity] = useState<{ cityCode: string; cityName: string }>()
+  const [next24HoursWeather, setNext24HoursWeather] = useState<WEATHER.OneDayEveryHourWeather>()
+  const [nextAlarmWeather, setNextAlarmWeather] = useState<WEATHER.NextAlarmItem>()
   const [next5DaysWeather, setNext5DaysWeather] = useState<WEATHER.Next5DayWeather>()
   const [airQuality, setAirQuality] = useState<WEATHER.AirQuality>()
   const [liveQuality, setLiveQuality] = useState<WEATHER.LiveQuality>()
@@ -42,7 +48,17 @@ const Weather = () => {
       setShowSearchList(false)
       initData(currentWeather.location.id)
     } else {
-      setShowSearchList(true)
+      const storage = window.localStorage.getItem('cityCollection') || '[]'
+      try {
+        const list = JSON.parse(storage)
+        if (list && Array.isArray(list) && list.length >= 4) {
+          history.push('/weatherPreview')
+        } else {
+          setShowSearchList(true)
+        }
+      } catch (error) {
+        setShowSearchList(true)
+      }
     }
   }, [currentWeather])
 
@@ -51,6 +67,16 @@ const Weather = () => {
    * TODO 服务端聚合一下数据接口
    */
   const initData = (code: string, isMoreType?: boolean) => {
+    fetchNext24HoursWeather(code).then((res) => {
+      if (res.data && res.data.results.length) {
+        setNext24HoursWeather(res.data.results[0])
+      }
+    })
+    fetchNextAlarm(code).then((res) => {
+      if (res.data && res.data.results.length) {
+        setNextAlarmWeather(res.data.results[0])
+      }
+    })
     fetchNext5dayWeather(code).then((res) => {
       if (res.data && res.data.results.length) {
         setNext5DaysWeather(res.data.results[0])
@@ -70,11 +96,6 @@ const Weather = () => {
       fetchCurrentWeather(code).then((res) => {
         if (res.data && res.data.results.length) {
           setCurrentWeather(res.data.results[0])
-        }
-      })
-      fetchNext24HoursWeather(code).then((res) => {
-        if (res.data && res.data.results.length) {
-          setNext24HoursWeather(res.data.results[0])
         }
       })
     }
@@ -174,12 +195,17 @@ const Weather = () => {
               </p>
               <p className={s.location}>{currentWeather.location.path.split(',').reverse().join(' ')}</p>
               <p className={s.updateTime}>
-                数据更新时间 {dayjs(currentWeather.last_update).format('hh:mm A')} 点击更新
+                数据更新时间 {dayjs(currentWeather.last_update).format('YYYY-MM-DD hh:mm A')}
               </p>
             </section>
           ) : null}
 
+          <div className={s.nextAlarmBox}>
+            {nextAlarmWeather?.alarms.length ? <NextAlarm nextAlarmWeather={nextAlarmWeather} /> : null}
+          </div>
+
           <div className={s.next24Box}>
+            <img className={s.topIcon} src={notTopIcon} alt="notTopIcon" />
             {next24HoursWeather ? <Next24HoursWeather next24HoursWeather={next24HoursWeather} /> : null}
           </div>
 
@@ -188,10 +214,6 @@ const Weather = () => {
           </div>
 
           <div className={s.currentAirBox}>{airQuality ? <AirQuality airQuality={airQuality} /> : null}</div>
-
-          {/*<div className={s.moreInfoBox}>*/}
-          {/*  <MoreWeatherInfo />*/}
-          {/*</div>*/}
 
           <div className={s.liveSuggestionBox}>
             <h2>生活质量建议</h2>
@@ -210,6 +232,7 @@ const Weather = () => {
               </section>
             )}
           </div>
+
           <p className={s.dataFrom}>天气数据来源于心知天气平台</p>
         </>
       )}

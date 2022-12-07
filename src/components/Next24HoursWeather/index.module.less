@@ -1,0 +1,57 @@
+.next24HoursBox {
+  h2 {
+    font-size: 42px;
+    color: var(--primary-font-color);
+  }
+
+  .next24HoursList {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .weatherBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 200px;
+      margin-right: 43px;
+      padding: 32px 0;
+      border-radius: 32px;
+      background: var(--button-not-select-background);
+
+      img {
+        height: 80px;
+      }
+
+      .temperature {
+        position: relative;
+        transform: translateX(-6px);
+        margin: 24px 0 12px;
+        font-size: 36px;
+        color: var(--primary-font-color);
+
+        &::after {
+          position: absolute;
+          top: 11px;
+          right: -12px;
+          display: block;
+          content: '';
+          width: 5px;
+          height: 5px;
+          border: 2px solid var(--primary-font-color);
+          border-radius: 50%;
+        }
+      }
+
+      .time {
+        color: var(--primary-font-color);
+      }
+    }
+  }
+}

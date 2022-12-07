@@ -15,6 +15,13 @@ export const fetchCurrentWeather = (cityCode: string): API.FetchResponse<{ resul
   request().get('/weather/currentWeather', { params: { cityCode } })
 
 /**
+ * 加载未来气象灾害
+ * @param cityCode
+ */
+export const fetchNextAlarm = (cityCode: string): API.FetchResponse<{ results: WEATHER.NextAlarmItem[] }> =>
+  request().get('/weather/nextAlarm', { params: { cityCode } })
+
+/**
  * 加载未来5日天气
  * @param cityCode
  */

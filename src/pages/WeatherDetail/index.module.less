@@ -94,6 +94,7 @@
   }
 
   .baseWeatherBox {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -154,13 +155,24 @@
     }
   }
 
+  .nextAlarmBox,
   .next24Box,
   .next5Box,
-  .currentAirBox,
-  .moreInfoBox {
+  .currentAirBox {
+    position: relative;
     width: 100%;
     padding: 0 32px;
     box-sizing: border-box;
+
+    .topIcon {
+      position: absolute;
+      top: 3px;
+      right: 36px;
+    }
+  }
+
+  .nextAlarmBox {
+    margin-top: 36px;
   }
 
   .liveSuggestionBox {

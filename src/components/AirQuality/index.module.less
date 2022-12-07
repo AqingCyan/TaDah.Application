@@ -1,0 +1,51 @@
+.currentAirBox {
+  h2 {
+    margin-top: 42px;
+    font-size: 42px;
+    color: var(--primary-font-color);
+  }
+
+  .airQuality {
+    padding: 32px;
+    box-sizing: border-box;
+    color: var(--primary-font-color);
+    border-radius: 32px;
+    border: 1px solid var(--not-active-border);
+    background: var(--button-not-select-background);
+
+    .quality {
+      margin: 12px 0;
+      font-size: 36px;
+    }
+
+    .mark {
+      margin: 0;
+    }
+
+    .api {
+      position: relative;
+      width: 622px;
+      height: 10px;
+      border-radius: 5px;
+      background: linear-gradient(
+        90deg,
+        #00e400 12.5%,
+        #ffff54 25%,
+        #ef8532 37.5%,
+        #ea3323 50%,
+        #8c1a4b 75%,
+        #731425 100%
+      );
+
+      .bar {
+        position: absolute;
+        top: -5px;
+        display: block;
+        width: 18px;
+        height: 18px;
+        background: #a9a8a8;
+        border-radius: 50%;
+      }
+    }
+  }
+}
