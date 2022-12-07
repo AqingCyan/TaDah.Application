@@ -14,40 +14,15 @@ import nothingWhite from '@/assets/nothingWhite.svg'
 import nothingBlack from '@/assets/nothingBlack.svg'
 import * as weatherIcons from '@/pages/WeatherDetail/components/WeatherIcons'
 import s from './index.module.less'
+import Toast from '@/components/Toast'
 
 const WeatherPreview = () => {
   const { inDark } = useTheme()
 
   const nothingSvg = useMemo(() => (inDark ? nothingWhite : nothingBlack), [inDark])
 
-  const [cities, setCities] = useState<string[]>(['WX4FBXXFKE4F'])
-  const [previewList, setPreviewList] = useState<WEATHER.CurrentWeatherItem[]>([
-    {
-      location: {
-        id: 'WX4FBXXFKE4F',
-        name: '北京',
-        country: 'CN',
-        path: '北京,北京,中国',
-        timezone: 'Asia/Shanghai',
-        timezone_offset: '+08:00',
-      },
-      now: {
-        text: '晴',
-        code: '1',
-        temperature: '-1',
-        feels_like: '-5',
-        pressure: '1026',
-        humidity: '22',
-        visibility: '30.0',
-        wind_direction: '北',
-        wind_direction_degree: '340',
-        wind_speed: '11.0',
-        wind_scale: '2',
-        clouds: '30',
-      },
-      last_update: '2022-12-03T21:12:10+08:00',
-    },
-  ])
+  const [cities, setCities] = useState<string[]>(['WX4FBXXFKE4F', 'WM4WBJNRWDMF', 'WMUES7GDRJ87'])
+  const [previewList, setPreviewList] = useState<WEATHER.CurrentWeatherItem[]>([])
   const [next24HoursWeather, setNext24HoursWeather] = useState<WEATHER.OneDayEveryHourWeather>({
     location: {
       id: 'WX4FBXXFKE4F',
@@ -276,6 +251,32 @@ const WeatherPreview = () => {
       },
     ],
   })
+  const [alarm, setAlarm] = useState<WEATHER.NextAlarmItem>({
+    //当前全国或指定城市的气象灾害预警数组
+    location: {
+      //第一个灾害预警的城市信息
+      id: 'WX4FBXXFKE4F',
+      name: '北京',
+      country: 'CN',
+      path: '北京,北京,中国',
+      timezone: 'Asia/Shanghai',
+      timezone_offset: '+08:00',
+    },
+    alarms: [
+      {
+        //该城市所有的灾害预警数组
+        alarm_id: '11000041600000_20210711175639', //预警唯一ID，可用于去重
+        title: '北京市气象台2021年07月11日17时50分发布雷电黄色预警信号',
+        type: '雷电',
+        level: '黄色',
+        region_id: '110000', // 国家行政区划编码
+        status: '', //V3版本默认为空
+        description:
+          '市气象台2021年7月11日17时50分发布雷电黄色预警信号：预计，11日18时至12日20时，本市将有雷电活动，短时阵风和局地雨强较大，请注意防范。',
+        pub_date: '2021-07-11T17:56:39+08:00', //各级政府发布预警时间
+      },
+    ],
+  })
 
   /**
    * 初始化缓存
@@ -357,6 +358,55 @@ const WeatherPreview = () => {
               ))}
             </div>
           </section>
+
+          <section className={s.otherCities}>
+            <h2>更多城市信息</h2>
+
+            {alarm.alarms.length ? (
+              <div
+                className={s.alarmInfo}
+                style={{ background: inDark ? 'rgba(231, 117, 92, 0.4)' : 'rgba(231, 117, 92, 0.3)' }}
+              >
+                <p className={s.title}>
+                  {alarm.alarms[0].type}
+                  {alarm.alarms[0].level}
+                  预警
+                </p>
+                <p className={s.description}>{alarm.alarms[0].title}</p>
+              </div>
+            ) : null}
+
+            {previewList.slice(1).map((item) => (
+              <div className={s.previewBox} key={item.location.path}>
+                <div className={s.iconBox}>
+                  {/* @ts-ignore */}
+                  <img src={weatherIcons[`Icon${item.now.code}`](inDark)} alt="icon" />
+                </div>
+                <div className={s.infoText}>
+                  <div className={s.leftInfo}>
+                    <span>{item.now.text}</span>
+                    <span>{item.location.path.split(',').slice(0, 3).reverse().join(' ')}</span>
+                  </div>
+                  <span className={s.temperature}>{item.now.temperature}</span>
+                </div>
+              </div>
+            ))}
+
+            <button
+              className={s.addButton}
+              onClick={() => {
+                if (cities.length < 4) {
+                  history.push('/weatherDetail')
+                } else {
+                  Toast.show('最多缓存四个天气', { position: 'center' })
+                }
+              }}
+            >
+              添加地区
+            </button>
+          </section>
+
+          <p className={s.dataFrom}>天气数据来源于心知天气平台</p>
         </>
       ) : null}
 

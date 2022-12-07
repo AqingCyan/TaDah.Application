@@ -63,6 +63,21 @@ declare namespace WEATHER {
     }[]
   }
 
+  type NextAlarmItem = {
+    location: CityListItem
+    alarms: {
+      // 该城市所有的灾害预警数组
+      alarm_id: string // 预警唯一ID，可用于去重
+      title: string
+      type: string
+      level: '橙色' | '蓝色' | '红色' | '黄色'
+      region_id: string // 国家行政区划编码
+      status: string // V3版本默认为空
+      description: string
+      pub_date: string // 各级政府发布预警时间
+    }[]
+  }
+
   type AirQuality = {
     location: CityListItem
     air: {

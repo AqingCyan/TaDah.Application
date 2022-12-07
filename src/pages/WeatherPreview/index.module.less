@@ -4,6 +4,7 @@
   box-sizing: border-box;
   padding: 32px 32px;
   background: var(--page-background);
+  transition: background-color 0.2s;
 
   .topCard {
     width: 100%;
@@ -74,8 +75,10 @@
   }
 
   .next5DayBox {
-    font-size: 30px;
-    color: var(--primary-font-color);
+    h2 {
+      font-size: 42px;
+      color: var(--primary-font-color);
+    }
 
     .next24HoursList {
       display: flex;
@@ -93,7 +96,7 @@
         align-items: center;
         justify-content: center;
         min-width: 200px;
-        margin-right: 32px;
+        margin-right: 43px;
         padding: 32px 0;
         border-radius: 32px;
         background: var(--button-not-select-background);
@@ -127,6 +130,124 @@
         }
       }
     }
+  }
+
+  .otherCities {
+    h2 {
+      font-size: 42px;
+      color: var(--primary-font-color);
+    }
+
+    .alarmInfo {
+      width: 100%;
+      padding: 32px;
+      box-sizing: border-box;
+      border-radius: 32px;
+      transition: background-color 0.2s;
+
+      .title {
+        margin: 0 0 24px;
+        color: var(--primary-font-color);
+        font-size: 36px;
+      }
+
+      .description {
+        margin: 0;
+        color: var(--primary-font-color);
+        line-height: 50px;
+      }
+    }
+
+    .previewBox {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin: 32px 0;
+      padding: 32px;
+      box-sizing: border-box;
+      border-radius: 32px;
+      border: 1px solid var(--not-active-border);
+      background: var(--button-not-select-background);
+      box-shadow: var(--shadow-val);
+      transition: background-color 0.2s;
+
+      .iconBox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        transition: background-color 0.2s;
+
+        img {
+          height: 50px;
+        }
+      }
+
+      .infoText {
+        display: flex;
+        align-items: center;
+        width: 430px;
+        justify-content: space-between;
+        margin-left: 24px;
+        color: var(--primary-font-color);
+
+        .leftInfo {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 100px;
+
+          span:first-child {
+            font-size: 36px;
+          }
+
+          span:last-child {
+            width: 320px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 27px;
+          }
+        }
+
+        .temperature {
+          position: relative;
+          font-size: 56px;
+
+          &::after {
+            position: absolute;
+            top: 14px;
+            right: -18px;
+            content: '';
+            width: 7px;
+            height: 7px;
+            border: 3px solid var(--primary-font-color);
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+
+    .addButton {
+      height: 116px;
+      width: 100%;
+      background: var(--primary-color);
+      border-radius: 24px;
+      font-size: 32px;
+      border: none;
+      color: #ffffff;
+      user-select: none;
+      transition: background 0.2s;
+    }
+  }
+
+  .dataFrom {
+    margin: 64px 0 0;
+    color: #3d3d3d;
+    text-align: center;
   }
 
   .emptyBox {
