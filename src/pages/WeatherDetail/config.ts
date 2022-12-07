@@ -1,16 +1,6 @@
 import cityBlack from '@/assets/cityBlack.svg'
 import cityWhite from '@/assets/cityWhite.svg'
 
-export const weekMap = {
-  1: '一',
-  2: '二',
-  3: '三',
-  4: '四',
-  5: '五',
-  6: '六',
-  7: '日',
-}
-
 export const suggestionMap = [
   { key: 'ac', name: '空调开启' },
   { key: 'air_pollution', name: '空气污染扩散条件' },
@@ -43,12 +33,4 @@ export const suggestionMap = [
 
 export const cityIcon = (dark: boolean) => {
   return !dark ? cityBlack : cityWhite
-}
-
-export const weatherCodeCollection = {
-  sunnyKey: [0, 2, 39],
-  cloudKey: [4, 5, 6, 7, 8, 26, 27, 28, 29, 39, 31, 32, 33, 34, 35, 36, 37],
-  stormKey: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-  snowKey: [21, 22, 23, 24, 25, 38],
-  nightKey: [1, 3],
 }
