@@ -94,7 +94,7 @@ const AppDashboard = () => {
             key={item.name}
             className={s.applicationBox}
             onClick={() => {
-              if (item.status) {
+              if (!item.status) {
                 Toast.show('正在开发中👨🏻‍💻')
                 return
               }
