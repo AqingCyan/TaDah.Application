@@ -23,9 +23,6 @@ import Next5DaysWeather from '@/components/Next5DaysWeather'
 import AirQuality from '@/components/AirQuality'
 import TopInfo from '@/components/TopInfo'
 import NextAlarm from '@/components/NextAlarm'
-import closeIcon from '@/assets/closeBlack.svg'
-import topIcon from './icons/topIcon.svg'
-import notTopIcon from './icons/notTopIcon.svg'
 import s from './index.module.less'
 
 const Weather = () => {
@@ -205,7 +202,6 @@ const Weather = () => {
           </div>
 
           <div className={s.next24Box}>
-            <img className={s.topIcon} src={notTopIcon} alt="notTopIcon" />
             {next24HoursWeather ? <Next24HoursWeather next24HoursWeather={next24HoursWeather} /> : null}
           </div>
 
