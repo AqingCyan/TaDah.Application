@@ -57,10 +57,10 @@ const changePasswordIcon = (dark: boolean) => {
 }
 
 const applications = [
-  { name: '修改信息', route: '/updateUserInfo', iconFunc: userIcon },
-  { name: '修改密码', route: '/changePassword', iconFunc: changePasswordIcon },
-  { name: '快递查询', route: '/express', iconFunc: expressIcon },
-  { name: '天气查询', route: '/weatherPreview', iconFunc: weatherIcon },
+  { name: '修改信息', status: true, route: '/updateUserInfo', iconFunc: userIcon },
+  { name: '修改密码', status: true, route: '/changePassword', iconFunc: changePasswordIcon },
+  { name: '快递查询', status: true, route: '/express', iconFunc: expressIcon },
+  { name: '天气查询', status: true, route: '/weatherPreview', iconFunc: weatherIcon },
   { name: '今日吃啥', status: false, route: '/dinner', iconFunc: dinnerIcon },
   { name: '快捷记账', status: false, route: '/accountBook', iconFunc: accountBookIcon },
   { name: '纪念日', status: false, route: '/dayOfCommemoration', iconFunc: dayOfCommemorationIcon },
