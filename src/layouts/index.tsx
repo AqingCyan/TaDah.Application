@@ -17,11 +17,7 @@ export default function Layout() {
   const [showOpenInWechat, setShowOpenInWechat] = useState<'needMobile' | 'needWechat'>()
 
   const checkWechatAndModal = () => {
-    setTimeout(() => setShowOpenInWechat(isInWeChat() ? undefined : 'needWechat'), 100)
-  }
-
-  const checkBrowserAndModal = () => {
-    setTimeout(() => setShowOpenInWechat(isPC() ? 'needMobile' : undefined), 100)
+    setTimeout(() => setShowOpenInWechat(isInWeChat() ? (isPC() ? 'needMobile' : undefined) : 'needWechat'), 100)
   }
 
   const loadEmoji = () => {
@@ -38,8 +34,7 @@ export default function Layout() {
   }
 
   useEffect(disableIOSTouchZoom, [])
-  useEffect(checkWechatAndModal, [isInWeChat()])
-  useEffect(checkBrowserAndModal, [isPC()])
+  useEffect(checkWechatAndModal, [isInWeChat(), isPC()])
   useEffect(initData, [])
 
   return (
