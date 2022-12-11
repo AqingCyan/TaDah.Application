@@ -17,7 +17,7 @@ export default function Layout() {
   const [showOpenInWechat, setShowOpenInWechat] = useState<'needMobile' | 'needWechat'>()
 
   const checkWechatAndModal = () => {
-    setTimeout(() => setShowOpenInWechat(isInWeChat() ? (isPC() ? 'needMobile' : undefined) : 'needWechat'), 100)
+    setTimeout(() => setShowOpenInWechat(isPC() ? 'needMobile' : isInWeChat() ? undefined : 'needWechat'), 100)
   }
 
   const loadEmoji = () => {
@@ -51,7 +51,9 @@ export default function Layout() {
           <p style={Boolean(showOpenInWechat) ? { opacity: 1 } : undefined}>
             请您{showOpenInWechat === 'needMobile' ? '通过手机访问' : '扫描下方二维码'}使用该应用
           </p>
-          <img style={Boolean(showOpenInWechat) ? { opacity: 1 } : undefined} src={qrcode_img} alt="qrcode_img" />
+          {showOpenInWechat === 'needWechat' ? (
+            <img style={Boolean(showOpenInWechat) ? { opacity: 1 } : undefined} src={qrcode_img} alt="qrcode_img" />
+          ) : null}
         </div>
       </section>
     </>
