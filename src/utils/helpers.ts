@@ -10,6 +10,11 @@ export const getPlatformType = (): 'android' | 'ios' | 'others' => {
   return 'others'
 }
 
+/**
+ * 判断是否是移动端
+ */
+export const isPC = () => !/(Mobile|android)/i.test(UA)
+
 /** 是否在微信环境中 */
 export const isInWeChat = () => /MicroMessenger/i.test(UA)
 
