@@ -1,2 +1,31 @@
 .pageContainer {
+  width: 100vw;
+  min-height: 100%;
+  box-sizing: border-box;
+  background: var(--page-background);
+
+  .cardBox {
+    position: relative;
+    height: 530px;
+    width: 100%;
+
+    .topInfoBox {
+      padding: 32px 32px 0;
+      box-sizing: border-box;
+    }
+
+    .swiper {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+
+      .firstOne {
+        margin-left: 32px;
+      }
+
+      .noDataOne {
+        opacity: 0.2;
+      }
+    }
+  }
 }

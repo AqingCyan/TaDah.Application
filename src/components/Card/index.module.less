@@ -1,7 +1,7 @@
 .cardBox {
   position: relative;
   width: 540px;
-  height: 369px;
+  height: 380px;
   background: linear-gradient(45deg, #ffffff, #4b5e54, #f8f8f8e5);
   background-size: 400% 400%;
   border-radius: 32px 32px 0 0;
@@ -24,8 +24,99 @@
     bottom: 0;
     left: 4px;
     width: 532px;
-    height: 365px;
+    height: 376.5px;
+    padding: 32px 37px;
     border-radius: 32px 32px 0 0;
+    box-sizing: border-box;
     background: radial-gradient(104.07% 138.05% at 80.06% -64.65%, #116340 0%, #075332 43.45%, #083e26 100%);
+
+    .targetCount {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 19px;
+      background: linear-gradient(45deg, #ffffff, #7fa18f, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 300% 300%;
+      animation: gradientBG 6s ease infinite;
+
+      .title {
+        margin-bottom: 10px;
+        font-size: 28px;
+      }
+
+      .count {
+        margin: 0;
+        font-size: 56px;
+
+        span:nth-child(3) {
+          font-size: 36px;
+        }
+      }
+    }
+
+    .detailBox {
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(45deg, #ffffff, #7fa18f, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 300% 300%;
+      animation: gradientBG 6s ease infinite;
+
+      .out,
+      .in {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 0 19px;
+        font-size: 28px;
+      }
+
+      .progress {
+        position: relative;
+        margin: 0;
+        width: 100%;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+        overflow: hidden;
+
+        .finish {
+          position: absolute;
+          display: block;
+          height: 100%;
+          width: 30%;
+          background: #98f578;
+          border-radius: 5px;
+        }
+      }
+
+      .income {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 16px 0 0;
+        background: linear-gradient(45deg, #ffffff, #7fa18f, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        background-size: 300% 300%;
+        animation: gradientBG 6s ease infinite;
+        font-size: 24px;
+      }
+    }
+
+    .noData {
+      position: absolute;
+      top: 45%;
+      left: 0;
+      margin: 0;
+      transform: rotate(-90deg);
+      transform-origin: center;
+      color: #ffffff;
+    }
   }
 }
