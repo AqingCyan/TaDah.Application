@@ -20,3 +20,30 @@ export const setMonthData = (income: number, target: number) =>
   request().post('/tally/handleSetMonthData', {
     params: { income, target },
   })
+
+/**
+ * 获取标签
+ */
+export const loadTagList = (): API.FetchResponse<TALLY.TAG[]> => request().get('/tally/loadTagList')
+
+/**
+ * 设置标签
+ * @param tagName
+ * @param emojiName
+ * @param tagId
+ */
+export const changeOrSetTag = (tagName: string, emojiName: string, tagId?: number): API.FetchResponse<any> =>
+  request().post('/tally/changeOrSetTag', { params: { tagName, emojiName, tagId } })
+
+/**
+ * 记账
+ * @param data
+ */
+export const handleAddRecord = (data: {
+  year: number
+  month: number
+  count: number
+  description: string
+  tagId: number
+  amountType: 0 | 1
+}) => request().post('/tally/handleAddRecord', { data })

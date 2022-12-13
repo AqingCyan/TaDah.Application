@@ -1,14 +1,18 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import dayjs from 'dayjs'
+import { history } from 'umi'
+import Toast from '@/components/Toast'
 import Emoji from '@/components/Emoji'
 import TopInfo from '@/components/TopInfo'
 import useTheme from '@/hooks/useTheme'
 import FormInput from '@/components/FormInput'
+import { loadTagList, changeOrSetTag, handleAddRecord } from '@/services/tally'
 import emojiData from '@emoji-mart/data'
 import addIconGreen from '@/assets/addIconGreen.svg'
 import addIconWhite from '@/assets/addIconWhite.svg'
 import addIconPurple from '@/assets/addIconPurple.svg'
 import s from './index.module.less'
+import { tadah } from '@/utils/helpers'
 
 enum AmountType {
   paid = 0,
@@ -17,13 +21,6 @@ enum AmountType {
 
 const MAX_COUNT = 100
 
-const mockTagList = [
-  { emoji: '+1', name: '工作开销' },
-  { emoji: 'grinning', name: '开心的事情' },
-  { emoji: 'auto_rickshaw', name: '打工花费' },
-  { emoji: 'canoe', name: '划船' },
-]
-
 const AddRecord = () => {
   const timer = useRef<NodeJS.Timeout>()
 
@@ -31,10 +28,12 @@ const AddRecord = () => {
 
   const [emojis, setEmojis] = useState<string[]>([])
 
+  const [tagList, setTagList] = useState<TALLY.TAG[]>([])
   const [amountType, setAmountType] = useState<AmountType>(1)
   const [amountCountFen, setAmountCountFen] = useState<number>(0)
   const [descContent, setDescCount] = useState<string>('')
-  const [selectTagName, setSelectTagName] = useState<string>('工作开销')
+  const [selectTagName, setSelectTagName] = useState<string>('')
+  const [selectTagId, setSelectTagId] = useState<number>(0)
   const [hideAddText, setHideAddText] = useState<boolean>(false)
   const [showTagPicker, setShowTagPicker] = useState<boolean>(false)
   const [selectEmoji, setSelectEmoji] = useState<string>()
@@ -52,8 +51,16 @@ const AddRecord = () => {
     }
   }
 
+  useEffect(() => {
+    loadTagList().then((res) => {
+      if (res.data) {
+        setTagList(res.data)
+      }
+    })
+  }, [])
+
   const computeEmojiData = () => {
-    const selectedList = mockTagList.map((item) => item.emoji)
+    const selectedList = Array.from(new Set(tagList.map((item) => item.emojiName)))
     const result = Array.from(
       new Set(
         emojiData.categories
@@ -65,7 +72,7 @@ const AddRecord = () => {
     setEmojis([...selectedList, ...result])
   }
 
-  useEffect(computeEmojiData, [])
+  useEffect(computeEmojiData, [tagList])
 
   const overBiggestAmount = useMemo(() => amountCountFen >= 99999999, [amountCountFen])
   const overMaxCount = useMemo(() => descContent.length >= 100, [descContent])
@@ -88,10 +95,11 @@ const AddRecord = () => {
     setShowEdit(false)
   }
 
-  const handleEditAmountTag = (item: { name: string; emoji: string }) => {
-    setSelectTagName(item.name)
-    setEditTagName(item.name)
-    setSelectEmoji(item.emoji)
+  const handleEditAmountTag = (item: TALLY.TAG) => {
+    setSelectTagId(item.tagId)
+    setSelectTagName(item.tagName)
+    setEditTagName(item.tagName)
+    setSelectEmoji(item.emojiName)
   }
 
   const renderEmojiPicker = () => (
@@ -101,15 +109,31 @@ const AddRecord = () => {
           type="text"
           placeholder="请输入类目名（5字）"
           value={editTagName}
-          onChange={(e) => setEditTagName(e.target.value)}
+          onChange={(e) => setEditTagName(e.target.value.trim())}
         />
         <button
           onTouchStart={() => {
             if (showEdit) {
               handleCloseEditModalAndInitData()
             } else {
-              setHideAddText(false)
-              setTimeout(() => setShowTagPicker(false), 200)
+              if (selectTagName && selectEmoji && selectTagName.length <= 5) {
+                // TODO tagId 这里简单处理一下
+                changeOrSetTag(selectTagName, selectEmoji, selectTagId).then((res) => {
+                  if (res.data) {
+                    setHideAddText(false)
+                    setTimeout(() => setShowTagPicker(false), 200)
+                    loadTagList().then((res) => {
+                      if (res.data) {
+                        setTagList(res.data)
+                      }
+                    })
+                  } else {
+                    Toast.show('设置错误')
+                  }
+                })
+              } else {
+                Toast.show('没有选择emoji或设置名字或名字过长')
+              }
             }
           }}
         >
@@ -168,34 +192,34 @@ const AddRecord = () => {
         </section>
 
         <section className={s.amountTag}>
-          {mockTagList.map((item) => (
+          {tagList.map((item) => (
             <div
-              key={item.name}
-              className={`${selectTagName === item.name ? s.selectedTag : s.defaultTag} ${
-                shakeTag === item.name ? s.shakeTag : ''
+              key={item.tagName}
+              className={`${selectTagId === item.tagId ? s.selectedTag : s.defaultTag} ${
+                shakeTag === item.tagName ? s.shakeTag : ''
               }`}
               onTouchStart={(e) => {
                 e.stopPropagation()
                 // 一直按着不放触发编辑状态
                 timer.current = setTimeout(() => {
-                  setShakeTag(item.name)
+                  setShakeTag(item.tagName)
                   handleEditAmountTag(item)
                 }, 500)
               }}
               onTouchEnd={() => {
                 window.clearTimeout(timer.current)
-                setSelectTagName(item.name)
+                setSelectTagName(item.tagName)
+                setSelectTagId(item.tagId)
               }}
             >
               <div className={s.emojiBox}>
-                <Emoji size="1.5em" shortcodes={item.emoji} />
+                <Emoji size="1.5em" shortcodes={item.emojiName} />
               </div>
               <div className={s.tagHandlerBox}>
                 <div>
-                  <span>{item.name}</span>
+                  <span>{item.tagName}</span>
                   <div>
                     <button onClick={() => setShowEdit(true)}>改</button>
-                    <button>删</button>
                   </div>
                 </div>
               </div>
@@ -220,7 +244,25 @@ const AddRecord = () => {
         </section>
       </div>
       <section className={s.submit}>
-        <button>确定记账</button>
+        <button
+          onClick={() => {
+            handleAddRecord({
+              tagId: selectTagId,
+              description: descContent,
+              year: dayjs().year(),
+              month: dayjs().month() + 1,
+              amountType,
+              count: amountCountFen,
+            }).then((res) => {
+              if (res.data) {
+                history.push('/accountBook')
+                tadah()
+              }
+            })
+          }}
+        >
+          确定记账
+        </button>
       </section>
       <section
         className={s.mask}

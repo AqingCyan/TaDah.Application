@@ -24,4 +24,11 @@ declare namespace TALLY {
       updateTime: string
     }
   }
+
+  type TAG = {
+    emojiName: string
+    tagId: number
+    tagName: string
+    updateTime: string
+  }
 }
