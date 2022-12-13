@@ -248,6 +248,7 @@ const AddRecord = () => {
               style={hideAddText ? { opacity: 0 } : undefined}
               onTouchStart={() => {
                 setHideAddText(true)
+                setSelectTagId(0)
                 setTimeout(() => setShowTagPicker(true), 200)
               }}
             >
