@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import s from './index.module.less'
 
 interface CardProps {
@@ -13,6 +13,14 @@ const Card: React.FC<CardProps> = (props) => {
 
   const handleShowFenAmount = (count: number) => (count / 100).toFixed(2)
 
+  const { big, small } = useMemo(() => {
+    if (dataInfo?.target) {
+      const [big, small] = (dataInfo.target / 100).toFixed(2).split('.')
+      return { big, small: `.${small}` }
+    }
+    return { big: 0, small: '.00' }
+  }, [dataInfo?.target])
+
   const renderContent = () => {
     return dataInfo ? (
       <>
@@ -20,8 +28,8 @@ const Card: React.FC<CardProps> = (props) => {
           <span className={s.title}>计划开支</span>
           <p className={s.count}>
             <span>¥</span>
-            <span>5000</span>
-            <span>.00</span>
+            <span>{big}</span>
+            <span>{small}</span>
           </p>
         </div>
         <div className={s.detailBox}>

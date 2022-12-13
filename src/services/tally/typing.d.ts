@@ -8,4 +8,20 @@ declare namespace TALLY {
     currentSalary: number
     residueTarget: number
   }
+
+  type TALLY_ITEM = {
+    id: number
+    count: number
+    amountType: number
+    description: string
+    createTime: string
+    updateTime: string
+    delete: boolean
+    amountTag: {
+      tagId: number
+      emojiName: string
+      tagName: string
+      updateTime: string
+    }
+  }
 }

@@ -2,10 +2,11 @@ import request from '@/utils/request'
 
 /**
  * 查询用户指定年月的消费数据
- * @param year
- * @param month
  */
-export const fetchMonthData = (year: number, month: number): API.FetchResponse<TALLY.MONTH_DATA> =>
-  request().get('/tally/targetMonthData', {
-    params: { year, month },
-  })
+export const fetchMonthData = (): API.FetchResponse<TALLY.MONTH_DATA[]> => request().get('/tally/targetMonthData')
+
+/**
+ * 查询指定月份的数据
+ */
+export const fetchTallyList = (id: number): API.FetchResponse<TALLY.TALLY_ITEM[]> =>
+  request().get('/tally/targetMonthList', { params: { id } })
