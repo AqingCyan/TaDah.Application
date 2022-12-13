@@ -1,4 +1,6 @@
 import React, { useMemo } from 'react'
+import { history } from 'umi'
+import pencil from './pencil.svg'
 import s from './index.module.less'
 
 interface CardProps {
@@ -55,7 +57,10 @@ const Card: React.FC<CardProps> = (props) => {
 
   return (
     <div className={s.cardBox}>
-      <div className={s.contentBox}>{hasData ? renderContent() : <p className={s.noData}>暂无数据</p>}</div>
+      <div className={s.contentBox}>
+        <img src={pencil} alt="pencil" className={s.icon} onClick={() => history.push('/addCardInfo')} />
+        {hasData ? renderContent() : <p className={s.noData}>暂无数据</p>}
+      </div>
     </div>
   )
 }

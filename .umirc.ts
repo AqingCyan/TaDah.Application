@@ -27,6 +27,7 @@ export default {
         { path: '/expressMap', component: '@/pages/ExpressMap', title: '物流查询' },
         { path: '/addRecord', component: '@/pages/AddRecord', title: '记一笔账' },
         { path: '/accountBook', component: '@/pages/AccountBook', title: '记一笔账' },
+        { path: '/addCardInfo', component: '@/pages/AddAccountCard', title: '记一笔账' },
         { path: '/weatherDetail', component: '@/pages/WeatherDetail', title: '天气查询' },
         { path: '/weatherPreview', component: '@/pages/WeatherPreview', title: '天气查询' },
       ],

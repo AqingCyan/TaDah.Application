@@ -67,7 +67,7 @@ const AddRecord = () => {
 
   useEffect(computeEmojiData, [])
 
-  const overBiggestAmount = useMemo(() => amountCountFen >= 2147483647300, [amountCountFen])
+  const overBiggestAmount = useMemo(() => amountCountFen >= 99999999, [amountCountFen])
   const overMaxCount = useMemo(() => descContent.length >= 100, [descContent])
   const addIcon = useMemo(computeAddIcon, [theme, inDark])
 
@@ -77,7 +77,7 @@ const AddRecord = () => {
       setAmountCountFen(0)
       return
     }
-    if (/^\d+(\.\d{1,2})?$/.test(value) && value.length <= 12) {
+    if (/^\d+(\.\d{1,2})?$/.test(value) && value.length <= 10) {
       setAmountCountFen(parseFloat(value) * 100)
     }
   }

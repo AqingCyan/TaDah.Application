@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { history } from 'umi'
 import dayjs from 'dayjs'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import TopInfo from '@/components/TopInfo'
 import Card from '@/components/Card'
+import Emoji from '@/components/Emoji'
 import darkGreen from './background/darkGreen.svg'
 import { Swiper as SwiperClass } from 'swiper/types'
 import type { MonthData } from '@/pages/AccountBook/interface'
 import { fetchMonthData, fetchTallyList } from '@/services/tally'
 import 'swiper/css'
 import s from './index.module.less'
-import Emoji from '@/components/Emoji'
 
 const year = dayjs().year()
 const month = dayjs().month() + 1
@@ -103,6 +104,9 @@ const AccountBook = () => {
           </div>
         ))}
       </section>
+      <button className={s.addRecord} onClick={() => history.push('/addRecord')}>
+        +
+      </button>
     </div>
   )
 }
