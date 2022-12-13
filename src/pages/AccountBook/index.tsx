@@ -104,9 +104,9 @@ const AccountBook = () => {
           </div>
         ))}
       </section>
-      <button className={s.addRecord} onClick={() => history.push('/addRecord')}>
+      <div className={s.addRecord} onClick={() => history.push('/addRecord')}>
         +
-      </button>
+      </div>
     </div>
   )
 }

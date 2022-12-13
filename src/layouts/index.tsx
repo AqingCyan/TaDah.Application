@@ -17,7 +17,7 @@ export default function Layout() {
   const [showOpenInWechat, setShowOpenInWechat] = useState<'needMobile' | 'needWechat'>()
 
   const checkWechatAndModal = () => {
-    setTimeout(() => setShowOpenInWechat(isPC() ? 'needMobile' : isInWeChat() ? undefined : 'needWechat'), 100)
+    // setTimeout(() => setShowOpenInWechat(isPC() ? 'needMobile' : isInWeChat() ? undefined : 'needWechat'), 100)
   }
 
   const loadEmoji = () => {

@@ -90,9 +90,23 @@ const AddRecord = () => {
   }
 
   const handleCloseEditModalAndInitData = () => {
-    setEditTagName('')
-    setSelectEmoji('')
-    setShowEdit(false)
+    if (editTagName && selectEmoji && editTagName.length <= 5) {
+      changeOrSetTag(editTagName, selectEmoji, selectTagId).then((res) => {
+        if (res.data) {
+          loadTagList().then((res) => {
+            if (res.data) {
+              setTagList(res.data)
+            }
+          })
+          setSelectTagId(0)
+          setEditTagName('')
+          setSelectEmoji('')
+          setShowEdit(false)
+        }
+      })
+    } else {
+      Toast.show('名称不符合要求或未选择emoji')
+    }
   }
 
   const handleEditAmountTag = (item: TALLY.TAG) => {
@@ -246,19 +260,23 @@ const AddRecord = () => {
       <section className={s.submit}>
         <button
           onClick={() => {
-            handleAddRecord({
-              tagId: selectTagId,
-              description: descContent,
-              year: dayjs().year(),
-              month: dayjs().month() + 1,
-              amountType,
-              count: amountCountFen,
-            }).then((res) => {
-              if (res.data) {
-                history.push('/accountBook')
-                tadah()
-              }
-            })
+            if (selectTagId && descContent && amountCountFen) {
+              handleAddRecord({
+                tagId: selectTagId,
+                description: descContent,
+                year: dayjs().year(),
+                month: dayjs().month() + 1,
+                amountType,
+                count: amountCountFen,
+              }).then((res) => {
+                if (res.data) {
+                  history.push('/accountBook')
+                  tadah()
+                }
+              })
+            } else {
+              Toast.show('您的信息未写完整')
+            }
           }}
         >
           确定记账
