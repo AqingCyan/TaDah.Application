@@ -130,9 +130,10 @@ const AddRecord = () => {
             if (showEdit) {
               handleCloseEditModalAndInitData()
             } else {
-              if (selectTagName && selectEmoji && selectTagName.length <= 5) {
+              console.log(selectEmoji)
+              if (editTagName && selectEmoji && selectTagName.length <= 5) {
                 // TODO tagId 这里简单处理一下
-                changeOrSetTag(selectTagName, selectEmoji, selectTagId).then((res) => {
+                changeOrSetTag(editTagName, selectEmoji, selectTagId).then((res) => {
                   if (res.data) {
                     setHideAddText(false)
                     setTimeout(() => setShowTagPicker(false), 200)
