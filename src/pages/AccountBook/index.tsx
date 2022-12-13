@@ -79,7 +79,7 @@ const AccountBook = () => {
                 key={index}
                 className={`${index === 0 ? s.firstOne : ''} ${Boolean(item) ? '' : s.noDataOne}`}
               >
-                <Card dataInfo={item} hasData={Boolean(item)} />
+                <Card dataInfo={item} hasData={Boolean(item)} showEdit={item?.year === year && item.month === month} />
               </SwiperSlide>
             ))}
           </Swiper>

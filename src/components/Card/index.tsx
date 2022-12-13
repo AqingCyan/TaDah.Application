@@ -8,10 +8,11 @@ interface CardProps {
     | { income: number; target: number; outCount: number; residueCount: number; currentSalary: number }
     | undefined
   hasData?: boolean
+  showEdit?: boolean
 }
 
 const Card: React.FC<CardProps> = (props) => {
-  const { hasData = false, dataInfo } = props
+  const { hasData = false, dataInfo, showEdit = false } = props
 
   const handleShowFenAmount = (count: number) => (count / 100).toFixed(2)
 
@@ -58,7 +59,9 @@ const Card: React.FC<CardProps> = (props) => {
   return (
     <div className={s.cardBox}>
       <div className={s.contentBox}>
-        <img src={pencil} alt="pencil" className={s.icon} onClick={() => history.push('/addCardInfo')} />
+        {showEdit ? (
+          <img src={pencil} alt="pencil" className={s.icon} onClick={() => history.push('/addCardInfo')} />
+        ) : null}
         {hasData ? renderContent() : <p className={s.noData}>暂无数据</p>}
       </div>
     </div>
