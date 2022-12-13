@@ -2,6 +2,9 @@ body {
   --mask-background: rgba(31, 36, 46, 0.3);
   --page-background: rgba(0, 0, 0, 0.03);
 
+  --tally-card-background: radial-gradient(45.88% 76.04% at 93.68% 11.46%, #7747FB 0%, #6C3FE8 34.95%, #6539DD 100%);
+  --tally-card-border: linear-gradient(45deg, #ffffff, #a288ea, #f8f8f8e5);
+
   --modal-background: #ffffff;
   --primary-font-color: #333333;
 
@@ -30,6 +33,9 @@ body {
 body.dark {
   --mask-background: rgba(255, 255, 255, 0.3);
   --page-background: rgba(0, 0, 0, 0.9);
+
+  --tally-card-background: radial-gradient(45.88% 76.04% at 93.68% 11.46%, #7747FB 0%, #6C3FE8 34.95%, #6539DD 100%);
+  --tally-card-border: linear-gradient(45deg, #ffffff, #a288ea, #f8f8f8e5);
 
   --modal-background: #ffffff;
   --primary-font-color: #ffffff;
@@ -60,6 +66,9 @@ body.green {
   --mask-background: rgba(31, 36, 46, 0.3);
   --page-background: #f2f2f2;
 
+  --tally-card-background: radial-gradient(104.07% 138.05% at 80.06% -64.65%, #116340 0%, #075332 43.45%, #083e26 100%);
+  --tally-card-border: linear-gradient(45deg, #ffffff, #4b5e54, #f8f8f8e5);
+
   --modal-background: #ffffff;
   --primary-font-color: #333333;
 
@@ -88,6 +97,9 @@ body.green {
 body.greenDark {
   --mask-background: rgba(255, 255, 255, 0.3);
   --page-background: rgba(0, 0, 0, 0.9);
+
+  --tally-card-background: radial-gradient(45.88% 76.04% at 93.68% 11.46%, #323c37 0%, #26302a 34.95%, #101d14 100%);
+  --tally-card-border: linear-gradient(45deg, #ffffff, #4b5e54, #f8f8f8e5);
 
   --modal-background: #ffffff;
   --primary-font-color: #ffffff;

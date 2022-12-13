@@ -6,18 +6,33 @@ import s from './index.module.less'
 
 interface TopInfoProps {
   text: string
+  mustColor?: 'dark' | 'light'
 }
 
 const TopInfo: React.FC<TopInfoProps> = (props) => {
-  const { text } = props
+  const { text, mustColor } = props
 
   const { theme, setTheme, inDark, setInDark } = useTheme()
 
   return (
     <header className={s.topContainer}>
-      <h1>{text}</h1>
+      <h1 style={mustColor ? { color: mustColor === 'dark' ? '#ffffff' : '#333333' } : undefined}>{text}</h1>
       <span className={s.theme} onTouchStart={() => setTheme(theme === 'green' ? 'purple' : 'green')} />
-      <img className={s.icon} src={inDark ? lightIcon : darkIcon} alt="icon" onTouchStart={() => setInDark(!inDark)} />
+      {mustColor ? (
+        <img
+          className={s.icon}
+          src={mustColor === 'dark' ? lightIcon : darkIcon}
+          alt="icon"
+          onTouchStart={() => setInDark(!inDark)}
+        />
+      ) : (
+        <img
+          className={s.icon}
+          src={inDark ? lightIcon : darkIcon}
+          alt="icon"
+          onTouchStart={() => setInDark(!inDark)}
+        />
+      )}
     </header>
   )
 }

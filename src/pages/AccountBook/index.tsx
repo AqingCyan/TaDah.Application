@@ -1,11 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { history } from 'umi'
 import dayjs from 'dayjs'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import useTheme from '@/hooks/useTheme'
 import TopInfo from '@/components/TopInfo'
 import Card from '@/components/Card'
 import Emoji from '@/components/Emoji'
 import darkGreen from './background/darkGreen.svg'
+import darkPurple from './background/darkPurple.svg'
+import lightGreen from './background/lightGreen.svg'
+import addRecordIcon from './icon/addRecordIcon.svg'
+import addCardInfoIcon from './icon/addCardInfoIcon.svg'
 import { Swiper as SwiperClass } from 'swiper/types'
 import type { MonthData } from '@/pages/AccountBook/interface'
 import { fetchMonthData, fetchTallyList } from '@/services/tally'
@@ -16,6 +21,7 @@ const year = dayjs().year()
 const month = dayjs().month() + 1
 
 const AccountBook = () => {
+  const { inDark, theme } = useTheme()
   const swiper = useRef<SwiperClass>()
   const [monthDataList, setMonthDataList] = useState<(MonthData | undefined)[]>([])
   const [currentIndex, setCurrentIndex] = useState<number>(1)
@@ -53,11 +59,18 @@ const AccountBook = () => {
     }
   }, [currentIndex, monthDataList])
 
+  const background = useMemo(() => {
+    if (inDark) {
+      return theme === 'green' ? `url(${darkGreen})` : `url(${darkPurple})`
+    }
+    return theme === 'green' ? `url(${lightGreen})` : '#ffffff'
+  }, [inDark, theme])
+
   return (
     <div className={s.pageContainer}>
-      <section className={s.cardBox} style={{ background: `url(${darkGreen})` }}>
+      <section className={s.cardBox} style={{ background }}>
         <div className={s.topInfoBox}>
-          <TopInfo text={dayjs().format('YYYY年MM月')} />
+          <TopInfo text={dayjs().format('YYYY年MM月')} mustColor={!inDark && theme !== 'green' ? undefined : 'dark'} />
         </div>
 
         <div className={s.swiper}>
@@ -79,7 +92,7 @@ const AccountBook = () => {
                 key={index}
                 className={`${index === 0 ? s.firstOne : ''} ${Boolean(item) ? '' : s.noDataOne}`}
               >
-                <Card dataInfo={item} hasData={Boolean(item)} showEdit={item?.year === year && item.month === month} />
+                <Card dataInfo={item} hasData={Boolean(item)} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -91,7 +104,7 @@ const AccountBook = () => {
             <p className={s.time}>{dayjs(item.createTime).format('MM月DD日 hh:mm A')}</p>
             <div className={s.itemCard}>
               <div className={s.emojiBox}>
-                <Emoji shortcodes={item.amountTag.emojiName} size="2.5em" />
+                <Emoji shortcodes={item.amountTag.emojiName} size="2.2em" />
               </div>
               <div className={s.content}>
                 <p>{item.amountTag.tagName}</p>
@@ -105,7 +118,10 @@ const AccountBook = () => {
         ))}
       </section>
       <div className={s.addRecord} onClick={() => history.push('/addRecord')}>
-        +
+        <img src={addRecordIcon} alt="addRecordIcon" />
+      </div>
+      <div className={s.editCardInfo} onClick={() => history.push('/addCardInfo')}>
+        <img src={addCardInfoIcon} alt="addCardInfoIcon" />
       </div>
     </div>
   )

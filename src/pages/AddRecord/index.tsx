@@ -273,10 +273,12 @@ const AddRecord = () => {
                 if (res.data) {
                   history.push('/accountBook')
                   tadah()
+                } else {
+                  Toast.show(res.message)
                 }
               })
             } else {
-              Toast.show('您的信息未写完整')
+              Toast.show('未选择标签或有未填内容')
             }
           }}
         >

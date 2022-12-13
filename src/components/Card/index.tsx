@@ -1,6 +1,4 @@
 import React, { useMemo } from 'react'
-import { history } from 'umi'
-import pencil from './pencil.svg'
 import s from './index.module.less'
 
 interface CardProps {
@@ -8,11 +6,10 @@ interface CardProps {
     | { income: number; target: number; outCount: number; residueCount: number; currentSalary: number }
     | undefined
   hasData?: boolean
-  showEdit?: boolean
 }
 
 const Card: React.FC<CardProps> = (props) => {
-  const { hasData = false, dataInfo, showEdit = false } = props
+  const { hasData = false, dataInfo } = props
 
   const handleShowFenAmount = (count: number) => (count / 100).toFixed(2)
 
@@ -58,12 +55,7 @@ const Card: React.FC<CardProps> = (props) => {
 
   return (
     <div className={s.cardBox}>
-      <div className={s.contentBox}>
-        {showEdit ? (
-          <img src={pencil} alt="pencil" className={s.icon} onClick={() => history.push('/addCardInfo')} />
-        ) : null}
-        {hasData ? renderContent() : <p className={s.noData}>暂无数据</p>}
-      </div>
+      <div className={s.contentBox}>{hasData ? renderContent() : <p className={s.noData}>暂无数据</p>}</div>
     </div>
   )
 }

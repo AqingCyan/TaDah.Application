@@ -2,7 +2,7 @@
   position: relative;
   width: 540px;
   height: 380px;
-  background: linear-gradient(45deg, #ffffff, #4b5e54, #f8f8f8e5);
+  background: var(--tally-card-border);
   background-size: 400% 400%;
   border-radius: 32px 32px 0 0;
   animation: gradientBG 8s ease infinite;
@@ -28,7 +28,8 @@
     padding: 32px 37px;
     border-radius: 32px 32px 0 0;
     box-sizing: border-box;
-    background: radial-gradient(104.07% 138.05% at 80.06% -64.65%, #116340 0%, #075332 43.45%, #083e26 100%);
+    background: var(--tally-card-background);
+    transition: background 0.2s;
 
     .icon {
       position: absolute;

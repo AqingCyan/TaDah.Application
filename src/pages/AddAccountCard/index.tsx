@@ -29,8 +29,8 @@ const AddAccountCard = () => {
   return (
     <div className={s.pageContainer}>
       <div>
-        <TopInfo text={dayjs().format('YYYY年MM月')} />
-        <h1 className={s.title}>本月资金信息</h1>
+        <TopInfo text="月度资金信息" />
+        <h1 className={s.title}>{dayjs().format('YYYY年MM月')}资金信息</h1>
         <FormInput
           icon={<>¥</>}
           type="number"
