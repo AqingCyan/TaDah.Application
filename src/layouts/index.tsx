@@ -48,12 +48,16 @@ export default function Layout() {
           <p style={Boolean(showOpenInWechat) ? { opacity: 1 } : undefined}>
             检测到您在{showOpenInWechat === 'needWechat' ? '非微信' : '非移动端'}环境打开
           </p>
-          <p style={Boolean(showOpenInWechat) ? { opacity: 1 } : undefined}>
-            请您{showOpenInWechat === 'needMobile' ? '通过Tadah微信公众号访问' : '扫描下方二维码'}使用该应用
-          </p>
+          <p style={Boolean(showOpenInWechat) ? { opacity: 1 } : undefined}>请您扫描下方二维码使用该应用</p>
           {showOpenInWechat === 'needWechat' ? (
             <img style={Boolean(showOpenInWechat) ? { opacity: 1 } : undefined} src={qrcode_img} alt="qrcode_img" />
-          ) : null}
+          ) : (
+            <img
+              style={Boolean(showOpenInWechat) ? { opacity: 1, width: '30vw' } : { width: '30vw' }}
+              src={qrcode_img}
+              alt="qrcode_img"
+            />
+          )}
         </div>
       </section>
     </>

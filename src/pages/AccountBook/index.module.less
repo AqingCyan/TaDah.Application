@@ -28,4 +28,70 @@
       }
     }
   }
+
+  .listBox {
+    margin-top: 60px;
+    padding: 0 32px;
+    box-sizing: border-box;
+
+    .oneItemBox {
+      margin-bottom: 32px;
+
+      .time {
+        margin-bottom: 20px;
+        font-size: 36px;
+        line-height: 36px;
+        color: var(--primary-font-color);
+      }
+
+      .itemCard {
+        display: flex;
+        align-items: center;
+        width: 686px;
+        height: 212px;
+        padding: 0 32px;
+        box-sizing: border-box;
+        background: var(--button-not-select-background);
+        border: 2px solid var(--not-active-border);
+        box-shadow: var(--shadow-val);
+        border-radius: 24px;
+
+        .emojiBox {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          background: var(--primary-color);
+        }
+
+        .content {
+          margin-left: 24px;
+
+          p:first-child {
+            margin: 0 0 16px;
+            font-size: 28px;
+            line-height: 28px;
+            font-weight: bolder;
+            color: var(--primary-font-color);
+          }
+
+          p:last-child {
+            margin: 0;
+            font-size: 24px;
+            line-height: 24px;
+            color: var(--primary-font-color);
+            opacity: 0.5;
+          }
+        }
+
+        .price {
+          margin-left: auto;
+          font-size: 32px;
+          color: var(--primary-font-color);
+        }
+      }
+    }
+  }
 }

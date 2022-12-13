@@ -9,6 +9,7 @@ import type { MonthData } from '@/pages/AccountBook/interface'
 import { fetchMonthData, fetchTallyList } from '@/services/tally'
 import 'swiper/css'
 import s from './index.module.less'
+import Emoji from '@/components/Emoji'
 
 const year = dayjs().year()
 const month = dayjs().month() + 1
@@ -46,7 +47,7 @@ const AccountBook = () => {
   useEffect(() => {
     if (monthDataList[currentIndex] && monthDataList[currentIndex]?.id) {
       fetchTallyList(monthDataList[currentIndex]!.id).then((res) => {
-        setTallyList(res.data || [])
+        setTallyList(res.data)
       })
     }
   }, [currentIndex, monthDataList])
@@ -82,6 +83,25 @@ const AccountBook = () => {
             ))}
           </Swiper>
         </div>
+      </section>
+      <section className={s.listBox}>
+        {tallyList.map((item) => (
+          <div key={item.createTime} className={s.oneItemBox}>
+            <p className={s.time}>{dayjs(item.createTime).format('MM月DD日 hh:mm A')}</p>
+            <div className={s.itemCard}>
+              <div className={s.emojiBox}>
+                <Emoji shortcodes={item.amountTag.emojiName} size="2.5em" />
+              </div>
+              <div className={s.content}>
+                <p>{item.amountTag.tagName}</p>
+                <p>{item.description}</p>
+              </div>
+              <span className={s.price}>
+                {item.amountType === 0 ? '-' : '+'}¥{(item.count / 100).toFixed(2)}
+              </span>
+            </div>
+          </div>
+        ))}
       </section>
     </div>
   )
